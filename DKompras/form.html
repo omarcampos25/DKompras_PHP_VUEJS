@@ -1,0 +1,76 @@
+<form class="register-form ">
+    <div class="content container">
+       
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    
+                    <div class="col">
+                        <div class="form-group">
+                           
+                            <v-text-field v-model="nombre" label="Nombre" placeholder="" outlined></v-text-field>
+                            
+                        </div>
+
+                        <div class="form-group">
+
+                            <v-text-field v-model="email" label="email" placeholder="" solo></v-text-field>
+                        
+                        </div>
+
+                        <div class="form-group">
+
+                            <v-text-field v-model="contrasena" v-model="contrasena" label="contrasena" placeholder="" solo></v-text-field>
+                           
+                        </div>
+
+                        <div class="form-group">
+
+                            <v-text-field v-model="contrasenaValidar" v-model="contrasenaValidar" label="contrasenaValidar" placeholder="" solo></v-text-field>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+           
+
+            <div class="col-md-8">
+
+
+                <table id="tableUser" class="table">
+                    <thead>
+                        <tr>
+
+                            <th>Nombre</th>
+                            <th>Email</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tbodyUser">
+                        <tr v-for="user in users">
+
+                            <td>{{user.nombre}}</td>
+                            <td>{{      user.email    }}</td>
+                            <td><Button type="button" id="update-submit-btn" class="btn btn-success red pull-right" @click="editarUser(user)" >Editar</Button></td>
+                            <td><Button type="button"  class="btn btn-danger red pull-right" >Eliminar</Button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+            <v-btn rounded color="purple" @click="RegistrarUsers(),limpiar()" dark>Registrar</v-btn>
+            <v-btn rounded color="purple"  dark>Actualizar</v-btn>
+        </div>
+
+    </div>
+   
+</form>
