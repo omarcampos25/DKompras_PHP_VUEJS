@@ -44,6 +44,52 @@
 
       
     </v-toolbar>
+    <v-main v-show="form==4">
+      <v-container
+        class="fill-height"
+        fluid
+      >
+        <v-row
+          alingn="center"
+          justify="center"
+        >
+          <v-col
+            cols="12"
+            sm="8"
+            md="4"
+          >
+            <v-card class="elevation-12">
+              <v-toolbar
+                color="primary"
+                dark
+                flat
+              >
+                <v-toolbar-title>Registra tu empresa</v-toolbar-title>
+                <v-spacer></v-spacer>
+             
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                 
+                <v-text-field label="Nombre del negocio" v-model="nombreEmpresa" name="nombre" type="text"> </v-text-field>
+                <v-text-field label="Correo electronico" v-model="correoEmpresa" name="aPaterno"  type="text"> </v-text-field>
+                <v-text-field label="Direccion" v-model="direccionEmpresa"  type="text"> </v-text-field>
+                
+                <v-text-field label="Ciudad" v-model="ciudadEmpresa" name="login" type="text"> </v-text-field>
+                <v-text-field v-model="estadoEmpresa" label="Estado"   > </v-text-field>
+                <v-text-field v-model="telefonoEmpresa" label="Telefono"   > </v-text-field>
+                
+              </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>             
+                <v-btn color="primary" @click="RegistrarEmpresa()">Registrar</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
     <v-main v-show="form==0">
       <v-container
         class="fill-height"
