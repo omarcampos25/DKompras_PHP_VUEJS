@@ -92,8 +92,9 @@ new Vue({
           firebase.auth().signInWithEmailAndPassword(this.user,this.pass).
           then(user=>{
             console.log(user.user.uid);
+            
          //   this.$cookie.set("uidUser", user.user.uid, "expiring time")
-            window.location.href = 'http://localhost/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+            window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
           }).catch(error=>{
             this.error=error;
           })

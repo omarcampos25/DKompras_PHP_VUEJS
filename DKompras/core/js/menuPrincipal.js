@@ -16,7 +16,7 @@ new Vue({
     }),
     methods: {
         ViewEmpresa(){
-          window.location.href = 'http://localhost/Dkompras/vista/MenuEmpresa/Menu_empresa.php';
+          window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuEmpresa/Menu_empresa.php';
            /* e = document.createElement("article");
             e.innerHTML =" ";
             document.getElementById("contenedor").innerHTML="";
