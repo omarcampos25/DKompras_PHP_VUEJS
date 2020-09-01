@@ -103,7 +103,7 @@ new Vue({
       if (this.user && this.pass) {
         firebase.auth().signInWithEmailAndPassword(this.user, this.pass).
           then(user => {
-           
+            this.uid=user.user.uid;
             this.VerificarEmpresa(user.user.uid);
             //   this.$cookie.set("uidUser", user.user.uid, "expiring time")
         //    window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
@@ -140,26 +140,29 @@ new Vue({
         this.empresa=snapshot.val();
         if(this.empresa==0){
           this.form=4;
+        }else{
+          window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
         }
       });
         
     },
     RegistrarEmpresa(){
+      let licencia = time.getDate() + '-' + (time.getMonth() + 2) + '-' + time.getFullYear() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
       let parametros = new URLSearchParams();
       parametros.append("accion", 2);
       parametros.append("nombreEmpresa", this.nombreEmpresa);
-      parametros.append("correoEmpresa", this.correoEmpresa);
+      parametros.append("emailEmpresa", this.correoEmpresa);
       parametros.append("direccionEmpresa", this.direccionEmpresa);
       parametros.append("ciudadEmpresa", this.ciudadEmpresa);
       parametros.append("estadoEmpresa", this.estadoEmpresa);
       parametros.append("telefonoEmpresa", this.telefonoEmpresa);
-      parametros.append("licencia", this.telefonoEmpresa);
+      parametros.append("licencia", licencia);
+      parametros.append("uid", this.uid);
 
       axios.post(this.ctr, parametros)
         .then(function (response) {
-
-          this.familias = response.data;
-
+          window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+          console.log(response);
         }.bind(this))
         .catch(function (error) {
 

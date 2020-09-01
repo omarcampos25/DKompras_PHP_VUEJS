@@ -9,15 +9,15 @@ new Vue({
     descuento: "",
     cantidad: "",
     select: ['Selecciona una familia'],
-    sleectDescuento:['Selecciona un descuento'],
+    sleectDescuento: ['Selecciona un descuento'],
     ctr: "http://localhost/Dkompras/core/php/controlador_Producto.php",
-    item:{
-      image : null,
+    item: {
+      image: null,
       imageUrl: null
-  },
-  imageBase64:null,
-  error:null,
-  itemsDescuentos:[]
+    },
+    imageBase64: null,
+    error: null,
+    itemsDescuentos: []
 
 
 
@@ -43,14 +43,12 @@ new Vue({
         this.overlay = false;
       }.bind(this));
 
-      
+
   },
   methods: {
-    RegistrarProductos() 
-    {
-      this.error=null;
-      if(this.imageBase64 && this.codigo && this.descripcion && this.select && this.precio && this.descuento && this.cantidad)
-      {
+    RegistrarProductos() {
+      this.error = null;
+      if (this.imageBase64 && this.codigo && this.descripcion && this.select && this.precio && this.descuento && this.cantidad) {
         let parametros = new URLSearchParams();
 
         parametros.append("accion", 3);
@@ -61,11 +59,11 @@ new Vue({
         parametros.append("descuento", this.descuento);
         parametros.append("foto", this.imageBase64);
         parametros.append("cantidad", this.cantidad);
-  
+
         axios.post(this.ctr, parametros)
           .then(function (response) {
             alert(response.data);
-  
+
           }.bind(this))
           .catch(function (error) {
             console.log(error);
@@ -73,8 +71,8 @@ new Vue({
           .then(function () {
             this.overlay = false;
           }.bind(this));
-      }else{
-        this.error="No puedes dejar campos vacios."
+      } else {
+        this.error = "No puedes dejar campos vacios."
       }
     },
     onChangePreView(e) {
@@ -84,26 +82,26 @@ new Vue({
       this.item.imageUrl = URL.createObjectURL(file)
       this.ConvertImageToBase64();
     },
-    toDataURL(src,callback){
+    toDataURL(src, callback) {
       var image = new Image();
-      image.crossOrigin='Anonymous';
+      image.crossOrigin = 'Anonymous';
 
-      image.onload=function(){
-        var canvas=document.createElement('canvas');
-        var context=canvas.getContext('2d');
-        canvas.height=this.naturalHeight,
-        canvas.width=this.naturalWidth;
-        context.drawImage(this,0,0);
-        var dataURL=canvas.toDataURL('image/jpeg');
+      image.onload = function () {
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        canvas.height = this.naturalHeight,
+          canvas.width = this.naturalWidth;
+        context.drawImage(this, 0, 0);
+        var dataURL = canvas.toDataURL('image/jpeg');
         callback(dataURL);
       };
-      image.src=src;
+      image.src = src;
     },
-    ConvertImageToBase64(){
-      this.toDataURL(this.item.imageUrl,function(dataURL){
-        this.imageBase64=dataURL;
+    ConvertImageToBase64() {
+      this.toDataURL(this.item.imageUrl, function (dataURL) {
+        this.imageBase64 = dataURL;
       })
     }
-  
+
   }
 })

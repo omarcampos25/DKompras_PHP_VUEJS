@@ -62,6 +62,13 @@ class Conexion {
             exit();
         }
     }
+
+    public function beginTransaction(){
+
+        if ( sqlsrv_begin_transaction( $this->conexion ) === false ) {
+            die( print_r( sqlsrv_errors(), true ));
+        }
+    }
     
     public function cerrarConexion()
     {

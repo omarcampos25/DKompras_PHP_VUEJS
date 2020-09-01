@@ -12,10 +12,10 @@ $url = clear_input(isset($_REQUEST['url']) && $_REQUEST['url'] != '' ? $_REQUEST
 $negocio = clear_input(isset($_REQUEST['negocio']) && $_REQUEST['negocio'] != '' ? $_REQUEST['negocio'] : '0');
 
 $nombreEmpresa = clear_input(isset($_REQUEST['nombreEmpresa']) && $_REQUEST['nombreEmpresa'] != '' ? $_REQUEST['nombreEmpresa'] : '0');
-$direccion = clear_input(isset($_REQUEST['direccion']) && $_REQUEST['direccion'] != '' ? $_REQUEST['direccion'] : '0');
-$ciudad = clear_input(isset($_REQUEST['ciudad']) && $_REQUEST['ciudad'] != '' ? $_REQUEST['ciudad'] : '0');
-$estado = clear_input(isset($_REQUEST['estado']) && $_REQUEST['estado'] != '' ? $_REQUEST['estado'] : '0');
-$telefono = clear_input(isset($_REQUEST['telefono']) && $_REQUEST['telefono'] != '' ? $_REQUEST['telefono'] : '0');
+$direccion = clear_input(isset($_REQUEST['direccionEmpresa']) && $_REQUEST['direccionEmpresa'] != '' ? $_REQUEST['direccionEmpresa'] : '0');
+$ciudad = clear_input(isset($_REQUEST['ciudadEmpresa']) && $_REQUEST['ciudadEmpresa'] != '' ? $_REQUEST['ciudadEmpresa'] : '0');
+$estado = clear_input(isset($_REQUEST['estadoEmpresa']) && $_REQUEST['estadoEmpresa'] != '' ? $_REQUEST['estadoEmpresa'] : '0');
+$telefono = clear_input(isset($_REQUEST['telefonoEmpresa']) && $_REQUEST['telefonoEmpresa'] != '' ? $_REQUEST['telefonoEmpresa'] : '0');
 $licencia = clear_input(isset($_REQUEST['licencia']) && $_REQUEST['licencia'] != '' ? $_REQUEST['licencia'] : '0');
 $emailEmpresa = clear_input(isset($_REQUEST['emailEmpresa']) && $_REQUEST['emailEmpresa'] != '' ? $_REQUEST['emailEmpresa'] : '0');
 
@@ -32,7 +32,7 @@ switch ($accion) {
     break;
 
     case 2:
-          $result = $obj->RegistrarEmpresa($nombreEmpresa,$direcion,$ciudad,$estado,$telefono,$licencia,$emailEmpresa);
+          $result = $obj->RegistrarEmpresa($nombreEmpresa,$direccion,$ciudad,$estado,$telefono,$licencia,$emailEmpresa);
           echo json_encode($result);
     break;
 

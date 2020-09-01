@@ -1,7 +1,8 @@
 <?php   
-
+require_once '../../model/Conexion.php';
 class ComandosLogin
 {
+    
    
     private $SQL;
 	private $sta;
@@ -12,22 +13,32 @@ class ComandosLogin
     }
 
 
-    public function RegistrarEmpresa($nombreEmpresa,$direcion,$ciudad,$estado,$telefono,$licencia,$emailEmpresa) 
+    public function RegistrarEmpresa($nombreEmpresa,$direccion,$ciudad,$estado,$telefono,$licencia,$emailEmpresa) 
     {
         try 
         {
+                 $uid= $_SESSION["uid"];
                 /* Iniciar la transacción. */
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                if ( sqlsrv_begin_transaction( $Conexion ) === false ) {
-                    die( print_r( sqlsrv_errors(), true ));
-                }
                
+
+               // $obj->beginTransaction();
+                
+
                 /* Preprar y ejecutar la primera sentencia . */
-                $sql1 = "INSERT INTO
+                $this->SQL = "INSERT INTO
+                negocios (negocio,email,direccion,ciudad,estado,telefono,licencia,idMembresia)
+                 VALUES ('$nombreEmpresa','$emailEmpresa','$direccion','$ciudad','$estado','$telefono',GETDATE()+30,'22BB3AA7-DC25-4F74-AB9D-045B5fg93021')";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                $idNegocio = $this->sta->fetchAll(PDO::FETCH_ASSOC);
+
+
+              /*  $sql1 = "INSERT INTO
                  negocios (negocio,email,direccion,ciudad,estado,telefono,licencia,idMembresia)
                   VALUES ('?','?','?','?','?','?','?','22BB3AA7-DC25-4F74-AB9D-045B5fg93021')";
                 $params1=array($nombreEmpresa,$emailEmpresa,$direccion,$ciudad,$estado,$telefono,$licencia);
-                $stmt1=sqlsrv_query( $Conexion, $sql1, $params1 );
+                $stmt1=sqlsrv_query( $Conexion, $sql1, $params1 );*/
 
                 /* Preparar y ejecutar la segunda sentencia.*/
                 $this->SQL = "SELECT SCOPE_IDENTITY()";
@@ -36,19 +47,29 @@ class ComandosLogin
                 $idNegocio = $this->sta->fetchAll(PDO::FETCH_ASSOC);
 
                 /* Preparar y ejecutar la tercera sentencia. */
+                $this->SQL = "UPDATE usuarios 
+                SET idNegocio =  '$idNegocio' 
+                WHERE id = '$uid'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                $idNegocio = $this->sta->fetchAll(PDO::FETCH_ASSOC);
+
+                /*
                 $sql2 = "UPDATE usuarios 
                 SET idNegocio =  ? 
                 WHERE id = ?";
 
                 $params2 = array($idNegocio, $_SESSION["uid"]);
+                $stmt2=sqlsrv_query( $Conexion, $sql2, $params2 );*/
 
+/*
                 if( $stmt1 && $stmt2 ) {
-                    sqlsrv_commit( $conn );
+                    sqlsrv_commit( $Conexion );
                     $datos="true";
                 } else {
-                    sqlsrv_rollback( $conn );
+                    sqlsrv_rollback( $Conexion );
                     $datos="false";
-                }
+                }*/
                 Conexion::getInstance()->cerrarConexion();
                 return $datos;
             
