@@ -141,8 +141,31 @@ new Vue({
         if(this.empresa==0){
           this.form=4;
         }else{
-          window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
-        }
+          let parametros = new URLSearchParams();
+          parametros.append("accion", 3);
+          parametros.append("uid", this.uid);
+    
+          axios.post(this.ctr, parametros)
+            .then(function (response) {
+              response.data.forEach(element=>{
+              
+               
+                  window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+              
+                
+    
+              })
+            console.log(response);
+            }.bind(this))
+            .catch(function (error) {
+              console.log(error);
+            })
+            .then(function () {
+    
+              this.overlay = false;
+            }.bind(this));
+         
+          }
       });
         
     },

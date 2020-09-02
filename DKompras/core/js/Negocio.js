@@ -26,16 +26,19 @@ new Vue({
     
         axios.post(this.ctr, parametros)
           .then(function (response) {
-            console.log(response.data.ciudad);
-            this.nombreNegocio=response.data.negocio;
-            this.email=response.data.email;
-            this.direccion=response.data.direccion;
-            this.ciudad=response.data.ciudad;
-            this.estado=response.data.estado;
-            this.telefono=response.data.telefono;
-            this.licencia=response.data.licencia;
+            console.log(response.data);
 
-    
+            response.data.forEach(element=>{
+              console.log(element.telefono);
+              this.nombreNegocio=element.negocio;
+              this.email=element.email;
+              this.direccion=element.direccion;
+              this.ciudad=element.ciudad;
+              this.estado=element.estado;
+              this.telefono=element.telefono;
+              this.licencia=element.licencia;
+            })
+
           }.bind(this))
           .catch(function (error) {
     
@@ -49,35 +52,7 @@ new Vue({
     
       },
       methods: {
-        RegistrarProductos() {
-          this.error = null;
-          if (this.imageBase64 && this.codigo && this.descripcion && this.select && this.precio && this.descuento && this.cantidad) {
-            let parametros = new URLSearchParams();
-    
-            parametros.append("accion", 3);
-            parametros.append("codigo", this.codigo);
-            parametros.append("descripcion", this.descripcion);
-            parametros.append("familia", this.select);
-            parametros.append("precio", this.precio);
-            parametros.append("descuento", this.descuento);
-            parametros.append("foto", this.imageBase64);
-            parametros.append("cantidad", this.cantidad);
-    
-            axios.post(this.ctr, parametros)
-              .then(function (response) {
-                alert(response.data);
-    
-              }.bind(this))
-              .catch(function (error) {
-                console.log(error);
-              })
-              .then(function () {
-                this.overlay = false;
-              }.bind(this));
-          } else {
-            this.error = "No puedes dejar campos vacios."
-          }
-        },
+       
         onChangePreView(e) {
           const file = e.target.files[0]
           console.log(file);

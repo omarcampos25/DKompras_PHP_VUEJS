@@ -25,25 +25,27 @@ $nombre = clear_input(isset($_REQUEST['nombre']) && $_REQUEST['nombre'] != '' ? 
 
 session_start();
 $_SESSION["uid"] = $uid;
+$_SESSION["empresa"]=0;
 
 switch ($accion) {
-    case 1: // Opcion para devolver la pagina a mostrar
-         echo json_encode(file_get_contents($url));              
-    break;
 
-    case 2:
+      case 1: // Opcion para devolver la pagina a mostrar
+         echo json_encode(file_get_contents($url));              
+      break;
+
+      case 2:
           $result = $obj->RegistrarEmpresa($nombreEmpresa,$direccion,$ciudad,$estado,$telefono,$licencia,$emailEmpresa);
           echo json_encode($result);
-    break;
+      break;
 
-    case 2:
-      $result = $obj->RegistrarUsuario($email,$nombre);
-      echo json_encode($result);
-break;
+      case 3:
+            $result = $obj->ObtenerEmpresa($uid);
+            echo json_encode($result);
+      break;
     
-    default:
-          echo json_encode(0);
-    break;
+      default:
+            echo json_encode(0);
+      break;
   }
 
   function clear_input($data) {

@@ -34,9 +34,9 @@
         
         <v-card
     class="mx-auto"
-    width="300"
+    width="700"
   >
-    <v-list>
+    <v-list width="700" >
       <v-list-item>
         <v-list-item-icon>
           <v-icon>mdi-home</v-icon>
@@ -58,6 +58,7 @@
           sub-group
           value="true"
         >
+
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title>Productos</v-list-item-title>
@@ -133,19 +134,8 @@
 
         <v-main>
           <v-container fluid >
-          
-                
-                  
-                    
             <section id="contenedor">
-
-                    
-          
             </section>
-                  
-                
-                  
-            
           </v-container>
         </v-main>
         <v-footer

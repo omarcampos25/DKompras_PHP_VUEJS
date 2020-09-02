@@ -1,6 +1,5 @@
 <?php
 //phpinfo();
-session_start();
 require_once '../../model/Conexion.php';
 require_once '../../model/ComandosProducto.php';
 

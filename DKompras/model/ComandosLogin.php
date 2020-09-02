@@ -99,6 +99,40 @@ class ComandosLogin
       
     }
 
+    public function ObtenerEmpresa($uid) 
+    {
+        try 
+        {
+            try {
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "SELECT idNegocio
+                              FROM usuarios
+                              WHERE id='$uid'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
+               
+                foreach($datos as &$element){
+                    $_session['empresa']=$element["idNegocio"];
+                }
+
+                Conexion::getInstance()->cerrarConexion();
+                
+                return $datos;
+            }catch (Exception $e){
+                Conexion::getInstance()->cerrarConexion();
+                return $e->getMessage();
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        Conexion::getInstance()->cerrarConexion();
+        return $result;
+
+       
+
+    }
+
 
 }
 
