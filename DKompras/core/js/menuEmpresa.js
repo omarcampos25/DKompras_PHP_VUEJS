@@ -23,7 +23,7 @@ new Vue({
     configuraciones:[
       ['Usuarios','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Usuarios.php','user'],
       ['Negocio','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Negocio.php','negocio'],
-      ['Sucursales','','',''],
+      ['Sucursales','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Sucursales.php','sucursal'],
       ['Formas de pago','1','',''],
       ['Formas de entrega','1','',''],
     ],

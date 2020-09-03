@@ -9,11 +9,11 @@
                                 <v-container>
                                 <v-row>
                 
-                                            <v-col cols="12" sm="12">
+                                            <v-col cols="12" sm="6">
                                                
 
                                                 <v-chip
-                                                
+                                                large
                                                 class="ma-2"
                                                 color="green"
                                                 text-color="white"
@@ -109,7 +109,7 @@
                                         <br>
                                         <br>
                                     
-                                    <v-btn rounded color="primary"  dark>Guardar</v-btn>
+                                    <v-btn large rounded block color="primary" @click="ActualizarDatos" dark>Guardar</v-btn>
                                 </v-container>
 
                     <v-container>
@@ -132,7 +132,7 @@
                         Logo de la empresa
                         </v-chip>
                              <v-img
-                             v-if="item.imageUrl" :src="item.imageUrl"
+                             v-if="imagen" :src="imagen"
                              aspect-ratio="1"
                              class="grey lighten-2"
                              max-width="500"
@@ -146,6 +146,10 @@
 
                         <v-alert type="error" v-if="error" dismissible>
                          {{error}}
+                        </v-alert>
+
+                        <v-alert type="success" v-if="mensaje" dismissible >
+                        {{mensaje}}
                         </v-alert>
                       
                     </v-container>   

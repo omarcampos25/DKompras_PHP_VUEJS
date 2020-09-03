@@ -10,12 +10,12 @@ $obj=new ComandoNegocio();
 
 $accion = clear_input(isset($_REQUEST['accion']) && $_REQUEST['accion'] != '' ? $_REQUEST['accion'] : '0');
 $idNegocio = clear_input(isset($_REQUEST['idNegocio']) && $_REQUEST['idNegocio'] != '' ? $_REQUEST['idNegocio'] : '0');
-$nombreNegocio = clear_input(isset($_REQUEST['codigo']) && $_REQUEST['codigo'] != '' ? $_REQUEST['codigo'] : '0');
-$correoNegocio = clear_input(isset($_REQUEST['descripcion']) && $_REQUEST['descripcion'] != '' ? $_REQUEST['descripcion'] : '0');
-$direccionNegocio = clear_input(isset($_REQUEST['familia']) && $_REQUEST['familia'] != '' ? $_REQUEST['familia'] : '0');
-$ciudadNegocio = clear_input(isset($_REQUEST['precio']) && $_REQUEST['precio'] != '' ? $_REQUEST['precio'] : '0');
-$estadoNegocio = clear_input(isset($_REQUEST['descuento']) && $_REQUEST['descuento'] != '' ? $_REQUEST['descuento'] : '0');
-$telefonoNegocio = clear_input(isset($_REQUEST['foto']) && $_REQUEST['foto'] != '' ? $_REQUEST['foto'] : '0');
+$nombreNegocio = clear_input(isset($_REQUEST['nombreNegocio']) && $_REQUEST['nombreNegocio'] != '' ? $_REQUEST['nombreNegocio'] : '0');
+$correoNegocio = clear_input(isset($_REQUEST['correoNegocio']) && $_REQUEST['correoNegocio'] != '' ? $_REQUEST['correoNegocio'] : '0');
+$direccionNegocio = clear_input(isset($_REQUEST['direccionNegocio']) && $_REQUEST['direccionNegocio'] != '' ? $_REQUEST['direccionNegocio'] : '0');
+$ciudadNegocio = clear_input(isset($_REQUEST['ciudadNegocio']) && $_REQUEST['ciudadNegocio'] != '' ? $_REQUEST['ciudadNegocio'] : '0');
+$estadoNegocio = clear_input(isset($_REQUEST['estadoNegocio']) && $_REQUEST['estadoNegocio'] != '' ? $_REQUEST['estadoNegocio'] : '0');
+$telefonoNegocio = clear_input(isset($_REQUEST['telefonoNegocio']) && $_REQUEST['telefonoNegocio'] != '' ? $_REQUEST['telefonoNegocio'] : '0');
 $logo = clear_input(isset($_REQUEST['logo']) && $_REQUEST['logo'] != '' ? $_REQUEST['logo'] : '0');
 
 
@@ -27,7 +27,7 @@ switch ($accion) {
       break;
 
       case 2:  
-        $result = $obj->ModificarNegocio($idNegocio,$nombreNegocio,$correoNegocio,$direccionNegocio,$ciudadNegocio,$estadoNegocio,$telefonoNegocio,$logo);
+        $result = $obj->ModificarNegocio($nombreNegocio,$correoNegocio,$direccionNegocio,$ciudadNegocio,$estadoNegocio,$telefonoNegocio,$logo);
         echo json_encode($result);
       break;
 
