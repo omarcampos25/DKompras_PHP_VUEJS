@@ -27,27 +27,27 @@ new Vue({
     pass: "",
     email: "",
     password: "",
-    empresa:"",
+    empresa: "",
     error: "",
     nombre: "",
     aPaterno: "",
     aMaterno: "",
     passwordConfi: "",
-    show1:"",
+    show1: "",
     Empresa: 0,
     FechaHora: "",
-    fire:false,
+    fire: false,
     Status: "false",
     form: 1,
     mensaje: "",
-    ctr:"http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
-    uid:"",
-    nombreEmpresa:"",
-    correoEmpresa:"",
-    direccionEmpresa:"",
-    ciudadEmpresa:"",
-    telefonoEmpresa:"",
-    estadoEmpresa:"",
+    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
+    uid: "",
+    nombreEmpresa: "",
+    correoEmpresa: "",
+    direccionEmpresa: "",
+    ciudadEmpresa: "",
+    telefonoEmpresa: "",
+    estadoEmpresa: "",
     password: 'Password',
     rules: {
       required: value => !!value || 'Required.',
@@ -64,14 +64,14 @@ new Vue({
   },
   methods: {
     register() {
-      
-       if (this.email && this.password && this.aPaterno && this.aMaterno && this.nombre) {
+
+      if (this.email && this.password && this.aPaterno && this.aMaterno && this.nombre) {
         if (this.password == this.passwordConfi) {
           firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
             .then(user => {
-             
+
               this.RegistarDatos(user.user.uid);
-            
+
             }).catch(err => {
               this.error = err.message
             })
@@ -83,9 +83,9 @@ new Vue({
         this.error = "Todos los campos son requeridos"
       }
     },
-    RegistarDatos(uid){
+    RegistarDatos(uid) {
       let fechaActual = time.getDate() + '-' + (time.getMonth() + 1) + '-' + time.getFullYear() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
-      firebase.database().ref("Usuarios/"+uid+'/').set({
+      firebase.database().ref("Usuarios/" + uid + '/').set({
         Correo: this.email,
         Empresa: this.Empresa,
         FechaHora: fechaActual,
@@ -103,10 +103,10 @@ new Vue({
       if (this.user && this.pass) {
         firebase.auth().signInWithEmailAndPassword(this.user, this.pass).
           then(user => {
-            this.uid=user.user.uid;
+            this.uid = user.user.uid;
             this.VerificarEmpresa(user.user.uid);
             //   this.$cookie.set("uidUser", user.user.uid, "expiring time")
-        //    window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+            //    window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
           }).catch(error => {
             this.error = error;
           })
@@ -134,42 +134,42 @@ new Vue({
     },
     VerificarEmpresa(uid) {
 
-      var ruta='/Usuarios/'+uid+'/Empresa';
-     
-      firebase.database().ref(ruta).once('value').then(snapshot=>{
-        this.empresa=snapshot.val();
-        if(this.empresa==0){
-          this.form=4;
-        }else{
+      var ruta = '/Usuarios/' + uid + '/Empresa';
+
+      firebase.database().ref(ruta).once('value').then(snapshot => {
+        this.empresa = snapshot.val();
+        if (this.empresa == 0) {
+          this.form = 4;
+        } else {
           let parametros = new URLSearchParams();
           parametros.append("accion", 3);
           parametros.append("uid", this.uid);
-    
+
           axios.post(this.ctr, parametros)
             .then(function (response) {
-              response.data.forEach(element=>{
-              
-               
-                  window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
-              
-                
-    
-              })
-            console.log(response);
+              console.log(response.data);
+
+
+                window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+
+
+
+
+              console.log(response);
             }.bind(this))
             .catch(function (error) {
               console.log(error);
             })
             .then(function () {
-    
+
               this.overlay = false;
             }.bind(this));
-         
-          }
+
+        }
       });
-        
+
     },
-    RegistrarEmpresa(){
+    RegistrarEmpresa() {
       let licencia = time.getDate() + '-' + (time.getMonth() + 2) + '-' + time.getFullYear() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
       let parametros = new URLSearchParams();
       parametros.append("accion", 2);
@@ -196,7 +196,7 @@ new Vue({
           this.overlay = false;
         }.bind(this));
     },
-    RegistrarUsuarioDB(uid){
+    RegistrarUsuarioDB(uid) {
       let parametros = new URLSearchParams();
       parametros.append("accion", 3);
       parametros.append("email", this.email);
@@ -219,7 +219,7 @@ new Vue({
         }.bind(this));
 
     }
-    
+
 
   },
   theme: {

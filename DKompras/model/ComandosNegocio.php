@@ -7,7 +7,8 @@ class ComandoNegocio
      * para un usuario especificado por su cve
      */
     private $SQL;
-	private $sta;
+    private $sta;
+    
      
 
     function __construct() {
@@ -17,9 +18,12 @@ class ComandoNegocio
 
     public function obtenerInfoNegocio() 
     {
+        $result=null;
         try 
         {
-            $empresa=$_session['empresa'];
+            session_start();
+            $empresa=$_SESSION['empresa'];
+            
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT  negocio,email,direccion,ciudad,estado,telefono,licencia
@@ -28,6 +32,8 @@ class ComandoNegocio
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
                 Conexion::getInstance()->cerrarConexion();
+
+               
                 
                 return $datos;
             }catch (Exception $e){
@@ -72,8 +78,3 @@ class ComandoNegocio
 
     
 }
-
-
-
-
-?>
