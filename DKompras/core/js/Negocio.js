@@ -2,14 +2,16 @@ new Vue({
   el: '#negocio',
   vuetify: new Vuetify(),
   data: {
-    imagen:"",
+    imagen: "",
     nombreNegocio: "",
-    mensaje:"",
+    mensaje: "",
     email: "",
     items: [],
     direccion: "",
     ciudad: "",
     estado: "",
+    mensajeDialogo:"",
+    dialog: false,
     telefono: "",
     licencia: "",
     ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_Negocio.php",
@@ -27,6 +29,8 @@ new Vue({
   methods: {
     LLenarDatos() {
 
+      this.mensajeDialogo="Cargando...";
+      this.dialog = true;
       let parametros = new URLSearchParams();
       parametros.append("accion", 1);
 
@@ -43,9 +47,9 @@ new Vue({
             this.estado = element.estado;
             this.telefono = element.telefono;
             this.licencia = element.licencia;
-            this.imagen="data:image/jpeg;base64,"+element.logo;
+            this.imagen = "data:image/jpeg;base64," + element.logo;
           })
-
+          this.dialog = false;
         }.bind(this))
         .catch(function (error) {
 
@@ -82,23 +86,26 @@ new Vue({
     ConvertImageToBase64() {
       this.toDataURL(this.item.imageUrl, function (dataURL) {
         this.imagen = dataURL;
-       
+
       }.bind(this))
     },
     ActualizarDatos() {
+      this.mensajeDialogo="Guardando...";
+      this.dialog = true;
       let parametros = new URLSearchParams();
       parametros.append("logo", this.imagen.replace("data:image/jpeg;base64,", ""));
       parametros.append("accion", 2);
       parametros.append("nombreNegocio", this.nombreNegocio);
       parametros.append("correoNegocio", this.email);
-      parametros.append("direccionNegocio",this.direccion);
-      parametros.append("ciudadNegocio",this.ciudad);
-      parametros.append("estadoNegocio",this.estado);
-      parametros.append("telefonoNegocio",this.telefono);
-  
+      parametros.append("direccionNegocio", this.direccion);
+      parametros.append("ciudadNegocio", this.ciudad);
+      parametros.append("estadoNegocio", this.estado);
+      parametros.append("telefonoNegocio", this.telefono);
+
       axios.post(this.ctr, parametros)
-        .then(response=>{
-          this.mensaje="Datos modificados";
+        .then(response => {
+          this.dialog = false;
+          
         })
         .catch(function (error) {
 

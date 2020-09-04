@@ -111,7 +111,6 @@ class ComandosLogin
 
                 foreach ($datos as &$element) {
                     $Session->SetUidEmpresa($element["idNegocio"]);
-                   
                 }
 
                 Conexion::getInstance()->cerrarConexion();

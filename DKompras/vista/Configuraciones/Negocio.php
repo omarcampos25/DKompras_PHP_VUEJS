@@ -13,7 +13,7 @@
                                                
 
                                                 <v-chip
-                                                large
+                                                x-large
                                                 class="ma-2"
                                                 color="green"
                                                 text-color="white"
@@ -36,6 +36,27 @@
                                             </v-col>
 
                                         </v-row>
+                                        <v-dialog
+                                            v-model="dialog"
+                                            hide-overlay
+                                            persistent
+                                            width="700"
+                                            
+                                            >
+                                            <v-card
+                                                color="primary"
+                                                dark
+                                            >
+                                                <v-card-text>
+                                                {{mensajeDialogo}}
+                                                <v-progress-linear
+                                                    indeterminate
+                                                    color="white"
+                                                    class="mb-0"
+                                                ></v-progress-linear>
+                                                </v-card-text>
+                                            </v-card>
+                                            </v-dialog>
                                         <v-row>
                                             
                                             <v-col cols="12" sm="12">
@@ -109,7 +130,7 @@
                                         <br>
                                         <br>
                                     
-                                    <v-btn large rounded block color="primary" @click="ActualizarDatos" dark>Guardar</v-btn>
+                                    <v-btn x-large rounded block color="primary" @click="ActualizarDatos" dark>Guardar</v-btn>
                                 </v-container>
 
                     <v-container>
