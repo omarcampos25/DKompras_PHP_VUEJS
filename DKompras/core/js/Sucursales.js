@@ -16,6 +16,7 @@ new Vue({
         { text: 'Estado', value: 'estado', sortable: false },
         { text: 'Telefono', value: 'telefono', sortable: false },
         { text: 'Email', value: 'email', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false },//Acciones de los registros editar y eliminar
     ],
       sucursales: [],
       editedIndex: -1,
@@ -76,11 +77,16 @@ new Vue({
       },
   
       editItem(item) {
-        /*this.validador = true;
-        this.editedItem.familia = item.familia;
-        this.editedItem.foto = item.foto;
-        this.editedItem.idFamilia = item.idFamilia;
-        this.dialog = true*/
+        //validador sirve para diferenciar si se esta editando o insertando
+        this.validador = true;
+
+        this.editItem.sucursal=item.sucursal;
+        this.editItem.direccion=item.direccion;
+        this.editItem.ciudad=item.ciudad;
+        this.editItem.estado=item.estado;
+        this.editItem.telefono=item.telefono;
+        this.editItem.email=item.email;
+        this.dialog = true
       },
   
       deleteItem(item) {
