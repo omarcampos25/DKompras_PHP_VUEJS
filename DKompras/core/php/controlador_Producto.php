@@ -29,7 +29,7 @@ switch ($accion) {
       break;
 
       case 3:
-        $result = $obj->insertarProducto($idNegocio,$codigo,$descripcion,$familia,$precio,$descuento,$foto,$cantidad);
+        $result = $obj->insertarProducto($codigo,$descripcion,$familia,$precio,$descuento,$foto,$cantidad);
         echo json_encode($result);
       break;
 

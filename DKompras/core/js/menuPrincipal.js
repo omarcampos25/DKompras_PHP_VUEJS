@@ -7,6 +7,7 @@ new Vue({
      data:{
          
          ctr:"../php/login.php"
+         
      },
     props: {
       source: String,

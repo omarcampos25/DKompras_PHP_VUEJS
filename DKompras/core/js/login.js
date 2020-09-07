@@ -39,6 +39,8 @@ new Vue({
     fire: false,
     Status: "false",
     form: 1,
+    dialog:false,
+    mensajeDialogo:'',
     mensaje: "",
     ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
     uid: "",
@@ -99,6 +101,8 @@ new Vue({
       this.form = 0;
     },
     login() {
+      this.dialog=true;
+      this.mensajeDialogo='Iniciando sesión';
       this.error = ''
       if (this.user && this.pass) {
         firebase.auth().signInWithEmailAndPassword(this.user, this.pass).

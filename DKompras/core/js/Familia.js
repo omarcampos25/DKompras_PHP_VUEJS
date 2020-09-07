@@ -81,7 +81,7 @@ new Vue({
     deleteItem(item) {
 
       const index = this.familias.indexOf(item)
-      var validador = confirm('¿Estás seguro de eliminar este producto?') && this.familias.splice(index, 1)
+      var validador = confirm('¿Estás seguro de eliminar esta familia?') && this.familias.splice(index, 1)
 
       if (validador) 
       {

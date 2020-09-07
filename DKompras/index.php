@@ -21,6 +21,8 @@
     
 </head>
 <body> 
+
+
     
 <div id="login"> 
 
@@ -34,7 +36,7 @@
   >
     <v-toolbar dense>
       
-      <v-toolbar-title> DKompras</v-toolbar-title>
+    <v-icon>mdi-cart </v-icon><v-toolbar-title> DKompras</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -229,6 +231,28 @@
     <v-alert type="success" v-if="mensaje" dismissible >
       {{mensaje}}
     </v-alert>
+
+    <v-dialog
+                                                v-model="dialog"
+                                                hide-overlay
+                                                persistent
+                                                width="700"
+                                                
+                                                >
+                                                <v-card
+                                                    color="primary"
+                                                    dark
+                                                >
+                                                    <v-card-text>
+                                                    {{mensajeDialogo}}
+                                                    <v-progress-linear
+                                                        indeterminate
+                                                        color="white"
+                                                        class="mb-0"
+                                                    ></v-progress-linear>
+                                                    </v-card-text>
+                                                </v-card>
+                                            </v-dialog>
    
 
  

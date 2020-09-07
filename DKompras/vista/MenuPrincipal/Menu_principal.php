@@ -31,27 +31,27 @@
   
 
       <v-list dense>
-        <v-list-item link>
+        <v-list-item link  @click="ViewEmpresa()"> 
           <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
+            <v-icon></v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-wrench</v-icon>
+            <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Conficuración</v-list-item-title>
+            <v-list-item-title>Cerrar sesion</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
+        <v-divider></v-divider>
         <v-list-item link  @click="ViewEmpresa()">
           <v-list-item-action>
-            <v-icon>mdi-backup-table</v-icon>
+            <v-icon>mdi-wrench</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Panel de control</v-list-item-title>
@@ -68,7 +68,7 @@
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>DKompras</v-toolbar-title>
+      <v-icon>mdi-cart </v-icon><v-toolbar-title >DKompras  </v-toolbar-title>
     </v-app-bar>
 
     <v-main>

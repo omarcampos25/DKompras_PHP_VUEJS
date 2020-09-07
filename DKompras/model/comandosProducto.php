@@ -47,9 +47,15 @@ class ComandoProducto
         try 
         {
             try {
+                session_start();
+                $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "SELECT p.codigo AS productos,f.Familia, p.Descripcion,p.precio
-                                FROM productos p INNER JOIN familias f ON p.Familia=f.idFamilia";
+                $this->SQL = "SELECT  
+                codigo AS producto,
+                 descripcion,precio,
+                  precioDesc AS descuento,
+                   existencias AS cantidad,
+                    imagen AS foto  FROM productos WHERE idNegocio='$empresa'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
@@ -68,19 +74,19 @@ class ComandoProducto
 
     }
 
-    public function insertarProducto($idNegocio,$codigo,$descripcion,$familia,$precio,$descuento,$foto,$cantidad) 
+    public function insertarProducto($codigo,$descripcion,$familia,$precio,$descuento,$foto,$cantidad) 
     {
         
         try 
         {
             try {
-
+                session_start();
+                $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "INSERT INTO Productos
-                (idNegocio,idProducto,codigo,descripcion,
+                (idNegocio,codigo,descripcion,
                 familia,precio,precioDesc,imagen,existencias,Estatus)
-                 VALUES ('51382BEF-07AD-4752-9810-B0B5F51ACD20',
-                 NEWId(),
+                 VALUES ('$empresa',
                  '$codigo',
                  '$descripcion',
                  '520D05CC-9BBA-4285-BC43-DEA0F3AB4ABE',
@@ -124,8 +130,10 @@ class ComandoProducto
        try 
         {
             try {
+                session_start();
+                $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "SELECT familia,foto,idFamilia FROM familias";
+                $this->SQL = "SELECT familia,foto,idFamilia FROM familias where idNegocio='$empresa'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
@@ -149,12 +157,15 @@ class ComandoProducto
        try 
         {
             try {
+                session_start();
+                $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "INSERT INTO familias (idNegocio,idFamilia,familia,foto)
-                VALUES ('653FEF81-36A0-4A27-A901-87F29936E8E2',NEWID(),'$familia','$foto')";
+                $this->SQL = "INSERT INTO familias (idNegocio,familia,foto)
+                VALUES ('$empresa','$familia','$foto')";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
+                echo($this->SQL);
                 
                 Conexion::getInstance()->cerrarConexion();
                 //var_dump($datos);
