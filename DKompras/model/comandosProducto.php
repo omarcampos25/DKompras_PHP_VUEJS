@@ -20,9 +20,11 @@ class ComandoProducto
         try 
         {
             try {
+                session_start();
+                $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "SELECT  Familia
-                                FROM Familias";
+                $this->SQL = "SELECT  Familia,idFamilia
+                                FROM Familias WHERE idNegocio='$empresa'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +53,11 @@ class ComandoProducto
                 $empresa=$_SESSION['empresa'];
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT  
-                codigo AS producto,
-                 descripcion,precio,
-                  precioDesc AS descuento,
-                   existencias AS cantidad,
-                    imagen AS foto  FROM productos WHERE idNegocio='$empresa'";
+                p.idProducto,p.codigo AS producto,
+                 p.descripcion,p.precio,
+                 p.precioDesc AS descuento,
+                 p.existencias ,
+                 p.imagen AS foto,f.Familia  FROM productos p INNER JOIN familias f on p.idFamilia=f.idFamilia WHERE p.idNegocio='$empresa'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
@@ -85,19 +87,22 @@ class ComandoProducto
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "INSERT INTO Productos
                 (idNegocio,codigo,descripcion,
-                familia,precio,precioDesc,imagen,existencias,Estatus)
+                idfamilia,precio,precioDesc,imagen,existencias,Estatus)
                  VALUES ('$empresa',
                  '$codigo',
                  '$descripcion',
-                 '520D05CC-9BBA-4285-BC43-DEA0F3AB4ABE',
+                 '$familia',
                  '$precio',
                  '$descuento',
                  '$foto',
                  '$cantidad',1);";
+                 echo($this->SQL);
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
                 Conexion::getInstance()->cerrarConexion();
+
+                
                 //var_dump($datos);
                 return $datos;
             }catch (Exception $e){

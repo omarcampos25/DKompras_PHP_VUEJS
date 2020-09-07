@@ -8,30 +8,34 @@ new Vue({
     ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/controlador_Producto.php",
     dialog: false,
     headers: [
-      {
-        text: 'Producto',
-        align: 'start',
-        sortable: false,
-        value: 'productos',
-      },
-      { text: 'descripcion', value: 'Descripcion' },
-      { text: 'cantidad', value: 'Cantidad' },
-      { text: 'precio', value: 'Precio' },
-      { text: ' descuento', value: 'Descuento' },
-      { text: 'familia', value: 'Familia' },
+      { text: 'Producto', align: 'start', sortable: false, value: 'producto'},
+      { text: 'Descripcion', value: 'descripcion' },
+      { text: 'Existencias', value: 'existencias' },
+      { text: 'Precio', value: 'precio' },
+      { text: 'Descuento', value: 'descuento' },
+      { text: 'Familia', value: 'Familia' },
       { text: 'Imagen', value: 'foto' },
       { text: 'Actions', value: 'actions', sortable: false },
     ],
     productos: [],
     editedIndex: -1,
     editedItem: {
-      familia: '',
-      foto: '',
-      idFamilia: '',
+      producto: '',
+      descripcion: '',
+      existencias: '',
+      precio:'',
+      descuento:'',
+      Familia:'',
+      foto:'',
     },
     defaultItem: {
-      familia: '',
-      foto: '',
+      producto: '',
+      descripcion: '',
+      existencias: '',
+      precio:'',
+      descuento:'',
+      Familia:'',
+      foto:'',
     },
     item: {
       image: null,
@@ -40,6 +44,11 @@ new Vue({
     validador: false,
     imagenValidador: false,
     dialog:'',
+    items: [],
+    select: {
+      familia:'',
+      idfamilia:'',
+    },
   }),
 
   computed: {
@@ -55,10 +64,31 @@ new Vue({
   },
 
   created() {
-    this.initialize()
+
+    this.initialize();
+    this.familias();
   },
 
   methods: {
+    familias() {
+      let parametros = new URLSearchParams();
+      parametros.append("accion", 1);
+
+      axios.post(this.ctr, parametros)
+        .then(function (response) {
+          this.items=response.data;
+         
+
+        }.bind(this))
+        .catch(function (error) {
+
+          console.log(error);
+        })
+        .then(function () {
+
+          this.overlay = false;
+        }.bind(this));
+    },
     initialize() {
       let parametros = new URLSearchParams();
       parametros.append("accion", 2);
@@ -83,11 +113,12 @@ new Vue({
       this.validador = true;
       this.editedItem.producto = item.producto;
       this.editedItem.descripcion = item.descripcion;
-      this.editedItem.cantidad = item.cantidad;
+      this.editedItem.existencias = item.existencias;
       this.editedItem.precio = item.precio;
       this.editedItem.descuento = item.descuento;
       this.editedItem.familia = item.familia;
       this.editedItem.foto = item.foto;
+      this.select=item.Familia;
 
       this.dialog = true
     },
@@ -132,10 +163,11 @@ new Vue({
       if (this.validador) {
         this.EnviarDatos(7);
       } else {
-        this.EnviarDatos(5);
+        this.EnviarDatos(3);
       }
     },
     EnviarDatos(accion) {
+      console.log(this.select);
       if (this.editedIndex > -1) {
         Object.assign(this.familias[this.editedIndex], this.editedItem)
       } else {
@@ -149,20 +181,17 @@ new Vue({
           parametros.append("idProducto", this.editedItem.idFamilia);
           console.log(this.editedItem.idFamilia);
         } else {
-          this.familias.push(this.editedItem);
+          this.productos.push(this.editedItem);
         }
-
+        console.log(this.editedItem.existencias);
         parametros.append("accion", accion);
-        parametros.append("producto", editedItem.producto);
-        parametros.append("descripcion", editedItem.descripcion);
-        parametros.append("cantidad", editedItem.cantidad);
-        parametros.append("precio", editedItem.precio);
-        parametros.append("descuento", editedItem.descuento);
-        parametros.append("familia", editedItem.familia);
-        parametros.append("foto", editedItem.foto);
-
-
-
+        parametros.append("codigo", this.editedItem.producto);
+        parametros.append("descripcion", this.editedItem.descripcion);
+        parametros.append("cantidad", this.editedItem.existencias);
+        parametros.append("precio", this.editedItem.precio);
+        parametros.append("descuento", this.editedItem.descuento);
+        parametros.append("familia", this.select.idFamilia);
+        parametros.append("foto", this.editedItem.foto);
 
         axios.post(this.ctr, parametros)
           .then(function (response) {

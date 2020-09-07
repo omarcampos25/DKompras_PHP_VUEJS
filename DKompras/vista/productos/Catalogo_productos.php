@@ -39,28 +39,108 @@
               <v-card-text>
                 <v-container>
                 <!--Card para edición-->
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.familia" label="Familia"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-img v-bind:src="'data:image/jpeg;base64,'+editedItem.foto"  width="100px" height="100px"></v-img>
-                    </v-col> 
-                  </v-row>
-                  <v-row> 
-                    <v-col cols="12" sm="12" md="4">
-                      Imagen
-                      <input type="file"   accept="image/*" @change="onChangePreView" />
-                    </v-col>
-                  </v-row>
+                <v-row>
+                            <v-col cols="12" sm="12">
+                                <v-container>
+                                    <v-row>                                      
+                                            <v-col cols="12" sm="12">
+                                                <v-text-field
+                                                    placeholder
+                                                    v-model="editedItem.producto"
+                                                    label="Producto"
+                                                    outlined
+                                                    
+                                                ></v-text-field>
+                                            </v-col>
+
+                                        </v-row>
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                                <v-text-field
+                                                v-model="editedItem.descripcion"
+                                                    label="Descripcion"
+                                                    outlined
+                                                ></v-text-field>
+                                            </v-col>  
+
+                                        </v-row>
+                                       
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                                <v-combobox
+                                                    v-model="select"
+                                                    label="Selecciona una familia"
+                                                    outlined
+                                                    :items="items"
+                                                    item-value="idFamilia"
+                                                    item-text="Familia"
+                                                    
+                                                ></v-combobox>
+                                            </v-col>  
+
+                                        </v-row>
+
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                                <v-text-field
+                                                v-model="editedItem.precio"
+                                                    label="Precio"
+                                                    outlined
+                                                    prefix="$"
+                                                ></v-text-field>
+                                            </v-col>  
+
+                                        </v-row>
+
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                                <v-text-field
+                                                v-model="editedItem.descuento"
+                                                    placeholder
+                                                    label="Descuento"
+                                                    outlined
+                                                    prefix="%"
+                                                ></v-text-field>
+                                            </v-col>
+
+                                        </v-row>
+
+                                    
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                                <v-text-field
+                                                v-model="editedItem.existencias"
+                                                    placeholder
+                                                    label="cantidad"
+                                                    outlined
+                                                    
+                                                    
+                                                ></v-text-field>
+                                            </v-col>
+
+                                        </v-row>
+                                        <input type="file" accept="image/*" @change="onChangePreView" />
+                                        <br>
+                                        <br>
+                                        <br>
+                                    
+                                      </v-container>
+
+                    <v-container>
+                        <v-row>
 
                 </v-container>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
+                <v-btn color="blue darken-1"  @click="close">Cancelar</v-btn>
+                <v-btn color="blue darken-1"  @click="save">Guardar</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>

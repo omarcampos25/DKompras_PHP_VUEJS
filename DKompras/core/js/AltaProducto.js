@@ -10,7 +10,7 @@ new Vue({
     cantidad: "",
     select: ['Selecciona una familia'],
     sleectDescuento: ['Selecciona un descuento'],
-    ctr: "http://localhost/Dkompras/core/php/controlador_Producto.php",
+    ctr: "http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/core/php/controlador_Producto.php",
     item: {
       image: null,
       imageUrl: null
