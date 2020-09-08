@@ -187,6 +187,7 @@ new Vue({
         console.log(typeof (imageBase64));
       })
     },
+    
 
 
   },

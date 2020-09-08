@@ -100,17 +100,18 @@ class ComandosLogin
         try {
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "SELECT idNegocio
-                              FROM usuarios
-                              WHERE id='$uid'";
+                $this->SQL = "SELECT s.idSucursal,u.idNegocio 
+                FROM usuarios u INNER JOIN 
+                sucursales s ON s.idSucursal=u.idSucursal WHERE u.id='$uid'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
-                $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
+                
 
 
 
                 foreach ($datos as &$element) {
-                    $Session->SetUidEmpresa($element["idNegocio"]);
+                    $Session->SetUidEmpresa($element["idNegocio"],$element["idSucursal"]);
+                  
                 }
 
                 Conexion::getInstance()->cerrarConexion();

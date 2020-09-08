@@ -9,10 +9,11 @@ class session
     }
 
 
-    public static function SetUidEmpresa($idEmpresa)
+    public static function SetUidEmpresa($idEmpresa,$idSucursal)
     {
         session_start();
         $_SESSION["empresa"] = $idEmpresa;
+        $_SESSION["sucursal"] = $idSucursal;
     }
 
 

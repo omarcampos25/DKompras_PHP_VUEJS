@@ -9,7 +9,7 @@
     >
     <template v-slot:item.foto="{ item }">
               <div class="p-2">
-                <v-img v-bind:src="'data:image/jpeg;base64,'+item.foto" :alt="item.foto" width="100px" height="100px"></v-img>
+                <v-img v-bind:src="'data:image/jpeg;base64,'+item.foto" :alt="item.foto" width="50px" height="50px"></v-img>
               </div>
             </template>
       <template v-slot:top>

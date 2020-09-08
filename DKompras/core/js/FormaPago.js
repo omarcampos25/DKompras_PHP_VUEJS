@@ -12,7 +12,7 @@ new Vue({
           value: 'formapago',
         },
         { text: 'Comision', value: 'comision' },
-        { text: 'Actions', value: 'actions', sortable: false },//Acciones de los registros editar y eliminar
+        { text: 'Acciones', value: 'actions', sortable: false },//Acciones de los registros editar y eliminar
     ],
       formaPago: [],
       editedIndex: -1,

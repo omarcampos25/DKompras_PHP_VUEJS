@@ -14,7 +14,11 @@ switch ($accion) {
         $result = $obj->listarSucursalesXNegocio();
         echo json_encode($result);
       break;
-
+      
+      case 2:  
+        $result = $obj->listarFormasPagosXSucursal();
+        echo json_encode($result);
+      break;
       
 
       default:

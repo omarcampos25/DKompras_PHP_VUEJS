@@ -104,11 +104,11 @@ new Vue({
           console.log(error);
         })
         .then(function () {
-
           this.overlay = false;
         }.bind(this));
     },
 
+    
     editItem(item) {
       this.validador = true;
       this.editedItem.producto = item.producto;

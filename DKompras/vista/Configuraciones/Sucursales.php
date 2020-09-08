@@ -15,6 +15,8 @@
                 vertical
             ></v-divider>
             <v-spacer></v-spacer>
+
+            <!--Dialogo para insertar y editar-->
             <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -63,7 +65,127 @@
                 </v-card-actions>
                 </v-card>
             </v-dialog>
+
+
+                <!--Dialogo para formas de pago-->
+            <v-dialog v-model="dialogoPagos" max-width="500px">
+                <template v-slot:activator="{ on, attrs }">
+             
+                </template> 
+                <v-card>
+                <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <v-container>
+                    <v-row>
+                        <v-col cols="12" sm="6" md="12">
+                        <v-chip
+                        class="ma-2"
+                        color="primary"
+                        label
+                        >
+                        <v-icon left>mdi-credit-card</v-icon>
+                        Metodo de pago
+                        </v-chip>
+                        </v-col>
+                        <v-container fluid>
+                        <v-row>
+                        <v-col cols="12">
+                            <v-combobox
+                            v-model="selectPagos"
+                            :items="itemsPagos"
+                            label="Formas de pago"
+                            item-value="idFormaPago"
+                            item-text="formapago"
+                            multiple
+                            outlined
+                            dense
+                            ></v-combobox>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-row>
+                    
+                    </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
+                </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+              <!--Dialogo para formas de entrega-->
+            <v-dialog v-model="dialogoEntregas" max-width="500px">
+                <template v-slot:activator="{ on, attrs }">
+             
+                </template> 
+                <v-card>
+                <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+
+                <v-card-text>
+                    <v-container>
+                    <v-row>
+                        <v-col cols="12" sm="6" md="12">
+                        <v-chip
+                        class="ma-2"
+                        color="primary"
+                        label
+                        >
+                        <v-icon left>mdi-train-car</v-icon>
+                        Forma de entrega
+                        </v-chip>
+                        </v-col>
+                        <v-container fluid>
+                        <v-row>
+                        <v-col cols="12">
+                            <v-combobox
+                            v-model="selectEntregas"
+                            :items="itemsEntregas"
+                            label="Formas de entrega"
+                            multiple
+                            outlined
+                            dense
+                            ></v-combobox>
+                        </v-col>
+                        </v-row>
+                    </v-container>
+                    </v-row>
+                    
+                    </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
+                </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+
             </v-toolbar>
+        </template>
+        <template v-slot:item.formas="{ item }">
+            <v-icon
+            
+            class="mr-2"
+            @click="ShowPagos(item)"
+            >
+            mdi-credit-card
+            </v-icon>
+            <v-icon
+            
+            @click="ShowEntregas(item)"
+            >
+            mdi-train-car
+            </v-icon>
         </template>
         <template v-slot:item.actions="{ item }">
             <v-icon

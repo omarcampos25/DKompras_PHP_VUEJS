@@ -16,11 +16,13 @@ new Vue({
         { text: 'Estado', value: 'estado', sortable: false },
         { text: 'Telefono', value: 'telefono', sortable: false },
         { text: 'Email', value: 'email', sortable: false },
-        { text: 'Actions', value: 'actions', sortable: false },//Acciones de los registros editar y eliminar
+        { text: 'Formas de pago y entrega', value: 'formas', sortable: false },
+        { text: 'Acciones', value: 'actions', sortable: false },//Acciones de los registros editar y eliminar
     ],
       sucursales: [],
       editedIndex: -1,
       editedItem: {
+        idSucursal:'',
         sucursal: '',
         direccion: '',
         ciudad: '',
@@ -29,6 +31,7 @@ new Vue({
         email:'',
       },
       defaultItem: {
+        idSucursal:'',
         sucursal: '',
         direccion: '',
         ciudad: '',
@@ -37,6 +40,17 @@ new Vue({
         email:'',
       },
       validador: false,
+      dialogoPagos:false,
+      dialogoEntregas:false,
+      selectPagos: [],
+        itemsPagos: [],
+        selectEntregas: ['Recoger en Sucursal', 'Fedex'],
+        itemsEntregas: [
+          'estafeta',
+          'DHL',
+          'Avion',
+          'Uber',
+        ],
     }),
   
     computed: {
@@ -154,7 +168,47 @@ new Vue({
         }
         this.close()
       },
+      ShowPagos(item){
+        let parametros = new URLSearchParams();
+        console.log(item.idSucursal);
+        this.dialogoPagos=true;
+
+        parametros.append("accion", 2);
+        axios.post(this.ctr, parametros)
+          .then(function (response) {
+           this.itemsPagos=response.data;
   
+          }.bind(this))
+          .catch(function (error) {
+  
+            console.log(error);
+          })
+          .then(function () {
+  
+            this.overlay = false;
+          }.bind(this));
+      },
+      ShowEntregas(item){
+        console.log(item.idSucursal);
+        this.dialogoEntregas=true;
+
+        parametros.append("accion", 2);
+        axios.post(this.ctr, parametros)
+          .then(function (response) {
+            console.log(response.data);
+           this.itemsPagos=response.data;
+  
+          }.bind(this))
+          .catch(function (error) {
+  
+            console.log(error);
+          })
+          .then(function () {
+  
+            this.overlay = false;
+          }.bind(this));
+      }
+      
     },
   })
   
