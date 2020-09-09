@@ -6,7 +6,7 @@ require_once '../../model/ComandosLogin.php';
 require_once '../../model/Session.php';
 
 
-
+header('Access-Control-Allow-Origin: *');
 $obj = new ComandosLogin();
 $Session = new session();
 $accion = clear_input(isset($_REQUEST['accion']) && $_REQUEST['accion'] != '' ? $_REQUEST['accion'] : '0');

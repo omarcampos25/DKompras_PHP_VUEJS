@@ -3,6 +3,7 @@ require_once '../../model/Conexion.php';
 require_once '../../model/Session.php';
 class ComandosLogin
 {
+    
 
 
     private $SQL;
@@ -105,11 +106,11 @@ class ComandosLogin
                 sucursales s ON s.idSucursal=u.idSucursal WHERE u.id='$uid'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
-                
-
+                $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
 
 
                 foreach ($datos as &$element) {
+                   
                     $Session->SetUidEmpresa($element["idNegocio"],$element["idSucursal"]);
                   
                 }

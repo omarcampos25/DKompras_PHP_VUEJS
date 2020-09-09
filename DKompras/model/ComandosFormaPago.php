@@ -24,8 +24,10 @@ class ComandoFormaPago
             
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
-                $this->SQL = "SELECT idFormaPago,formapago,comision 
-                FROM FormasPago WHERE idNegocio='$empresa'";
+                $this->SQL = "SELECT fp.idFormaPago,fp.FormaPago
+                FROM FormasPago fp INNER JOIN Sucursal_pago sp ON fp.idFormaPago=sp.idFormaPago
+                INNER JOIN Sucursales s ON sp.idSucursal=s.idSucursal
+                WHERE s.idNegocio='$empresa'";
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);

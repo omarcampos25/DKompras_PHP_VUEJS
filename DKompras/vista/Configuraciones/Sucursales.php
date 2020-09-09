@@ -74,7 +74,7 @@
                 </template> 
                 <v-card>
                 <v-card-title>
-                    <span class="headline">{{ formTitle }}</span>
+                    <span class="headline">Forma de pago</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -87,7 +87,7 @@
                         label
                         >
                         <v-icon left>mdi-credit-card</v-icon>
-                        Metodo de pago
+                        Seleccionas los Formas de pago
                         </v-chip>
                         </v-col>
                         <v-container fluid>
@@ -98,7 +98,7 @@
                             :items="itemsPagos"
                             label="Formas de pago"
                             item-value="idFormaPago"
-                            item-text="formapago"
+                            item-text="FormaPago"
                             multiple
                             outlined
                             dense
@@ -149,6 +149,8 @@
                             v-model="selectEntregas"
                             :items="itemsEntregas"
                             label="Formas de entrega"
+                            item-value="idFormaEntrega"
+                            item-text="FormaEntrega"
                             multiple
                             outlined
                             dense
