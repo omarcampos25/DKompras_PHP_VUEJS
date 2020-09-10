@@ -3,6 +3,7 @@ new Vue({
   vuetify: vuetify,
   data: () => ({
     ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/controlador_Sucursales.php",
+    ctrEstadoCiudad: 'http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_CiudadEstado.php',
     dialog: false,
     headers: [
       {
@@ -44,13 +45,12 @@ new Vue({
     dialogoEntregas: false,
     selectPagos: [],
     itemsPagos: [],
-    selectEntregas: ['Recoger en Sucursal', 'Fedex'],
-    itemsEntregas: [
-      'estafeta',
-      'DHL',
-      'Avion',
-      'Uber',
-    ],
+    selectEntregas: [],
+    itemsEntregas: [],
+    selectEstado: [],
+    itemsEstados: [],
+    selectCiudad: [],
+    itemsCiudades: [],
   }),
 
   computed: {
@@ -71,6 +71,9 @@ new Vue({
 
   methods: {
     initialize() {
+      this.ConsultarEstados();
+      this.MostrarEntregasXNegocio();
+      this.MostrarPagosXNegocio();
       let parametros = new URLSearchParams();
       parametros.append("accion", 1);
 
@@ -104,16 +107,16 @@ new Vue({
     },
 
     deleteItem(item) {
-      /*
-       const index = this.familias.indexOf(item)
-       var validador = confirm('¿Estás seguro de eliminar este producto?') && this.familias.splice(index, 1)
+      
+       const index = this.sucursales.indexOf(item)
+       var validador = confirm('¿Estás seguro de eliminar este producto?') && this.sucursales.splice(index, 1)
  
        if (validador) 
        {
-         console.log(item.idFamilia);
+        
          let parametros = new URLSearchParams();
-         parametros.append("accion", 6);
-         parametros.append("idFamilia", item.idFamilia);
+         parametros.append("accion", 5);
+         parametros.append("sucursal", item.idSucursal);
  
          axios.post(this.ctr, parametros)
            .then(function (response) {
@@ -128,12 +131,14 @@ new Vue({
  
              this.overlay = false;
            }.bind(this));
-       }*/
+       }
 
     },
 
     close() {
       this.dialog = false
+      this.dialogoEntregas = false
+      this.dialogoPagos = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -142,18 +147,48 @@ new Vue({
 
     save() {
       if (this.validador) {
-        this.EnviarDatosFamilia(7);
+        this.EnviarDatosSucursal(7);
       } else {
-        this.EnviarDatosFamilia(5);
+        this.EnviarDatosSucursal(4);
       }
     },
-    EnviarDatosFamilia(accion) {
+    EnviarDatosSucursal(accion) {
       if (this.editedIndex > -1) {
         Object.assign(this.familias[this.editedIndex], this.editedItem)
       } else {
         let parametros = new URLSearchParams();
 
-        axios.post(this.ctr, parametros)
+        parametros.append("accion", accion);
+        parametros.append("sucursal", this.editedItem.sucursal);
+        parametros.append("direccion", this.editedItem.direccion);
+        parametros.append("ciudad", this.selectCiudad.ciudad);
+        parametros.append("estado", this.selectEstado.estado);
+        parametros.append("telefono", this.editedItem.telefono);
+        parametros.append("email", this.editedItem.email);
+
+        let idsPagos=[];
+        let idsEntregas=[];
+        
+        this.selectPagos.forEach(element=>{
+          
+          idsPagos.push(element.idFormaPago)
+
+        })
+
+        this.selectEntregas.forEach(element=>{
+          
+          idsEntregas.push(element.idFormaEntrega)
+
+        })
+
+        parametros.append("formasPagos", idsPagos);
+        parametros.append("formasEntregas", idsEntregas);
+
+        
+
+        
+        
+        axios.post(this.ctr, JSON.stringify(parametros))
           .then(function (response) {
             console.log(response.data);
           }.bind(this))
@@ -168,27 +203,27 @@ new Vue({
       }
       this.close()
     },
-    ShowPagos(item) {
+    MostrarPagosXSucursal(item) {
       this.LimpiarCombos();
 
       let parametros = new URLSearchParams();
       this.dialogoPagos = true;
       parametros.append("accion", 2);
-     
+
       axios.post(this.ctr, parametros)
         .then(function (response) {
-         //Recorremos el arreglo 
+          //Recorremos el arreglo 
           response.data.forEach(element => {
             //se compraran los ids
-            if(element.sucursal==item.idSucursal){
+            if (element.sucursal == item.idSucursal) {
               //si el campo sucursal es igual a la sucursal seleccionada se mete al select y al body
               this.selectPagos.push(element);
               this.itemsPagos.push(element);
-            }else{
+            } else {
               //si no solo se mete al body
               this.itemsPagos.push(element);
             }
-            
+
           })
 
         }.bind(this))
@@ -201,27 +236,19 @@ new Vue({
           this.overlay = false;
         }.bind(this));
     },
-    ShowEntregas(item) {
+    MostrarPagosXNegocio() {
       this.LimpiarCombos();
 
       let parametros = new URLSearchParams();
-      this.dialogoPagos = true;
-      parametros.append("accion", 3);
-     
+      parametros.append("accion", 2);
+
       axios.post(this.ctr, parametros)
         .then(function (response) {
-         //Recorremos el arreglo 
+
           response.data.forEach(element => {
-            //se compraran los ids
-            if(element.sucursal==item.idSucursal){
-              //si el campo sucursal es igual a la sucursal seleccionada se mete al select y al body
-              this.selectPagos.push(element);
-              this.itemsPagos.push(element);
-            }else{
-              //si no solo se mete al body
-              this.itemsPagos.push(element);
-            }
-            
+
+            this.itemsPagos.push(element);
+
           })
 
         }.bind(this))
@@ -234,12 +261,128 @@ new Vue({
           this.overlay = false;
         }.bind(this));
     },
-    LimpiarCombos(){
-      this.selectPagos=[];
-      this.selectEntregas=[];
+    MostrarEntregasXSucursal(item) {
+      this.LimpiarCombos();
 
-      this.itemsPagos=[];
-      this.itemsEntregas=[];
+      let parametros = new URLSearchParams();
+      this.dialogoEntregas = true;
+      parametros.append("accion", 3);
+
+      axios.post(this.ctr, parametros)
+        .then(function (response) {
+          //Recorremos el arreglo 
+          
+          response.data.forEach(element => {
+            //se compraran los ids
+
+            if (element.sucursal == item.idSucursal) {
+              //si el campo sucursal es igual a la sucursal seleccionada se mete al select y al body
+              this.selectEntregas.push(element);
+              this.itemsEntregas.push(element);
+            } else {
+              //si no solo se mete al body
+              this.itemsEntregas.push(element);
+            }
+
+          })
+
+        }.bind(this))
+        .catch(function (error) {
+
+          console.log(error);
+        })
+        .then(function () {
+
+          this.overlay = false;
+        }.bind(this));
+    },
+    MostrarEntregasXNegocio() {
+      this.LimpiarCombos();
+
+      let parametros = new URLSearchParams();
+      parametros.append("accion", 3);
+
+      axios.post(this.ctr, parametros)
+        .then(function (response) {
+
+          response.data.forEach(element => {
+
+            this.itemsEntregas.push(element);
+
+          })
+
+        }.bind(this))
+        .catch(function (error) {
+
+          console.log(error);
+        })
+        .then(function () {
+
+          this.overlay = false;
+        }.bind(this));
+    },
+    LimpiarCombos() {
+      this.selectPagos = [];
+      this.selectEntregas = [];
+      this.selectCiudad = [];
+      this.selectEstado = [];
+
+      this.itemsPagos = [];
+      this.itemsEntregas = [];
+      this.itemsEstados = [];
+      this.itemsCiudades = [];
+    },
+    ConsultarEstados() {
+      this.LimpiarCombos();
+
+      let parametros = new URLSearchParams();
+      parametros.append("accion", 1);
+
+      axios.post(this.ctrEstadoCiudad, parametros)
+        .then(function (response) {
+
+          response.data.forEach(element => {
+
+            this.itemsEstados.push(element);
+
+          })
+
+        }.bind(this))
+        .catch(function (error) {
+
+          console.log(error);
+        })
+        .then(function () {
+
+          this.overlay = false;
+        }.bind(this));
+    },
+    ConsultarCiudades() {
+
+
+      let parametros = new URLSearchParams();
+      parametros.append("accion", 2);
+      parametros.append("idEstado", this.selectEstado.id);
+      
+
+      axios.post(this.ctrEstadoCiudad, parametros)
+        .then(function (response) {
+          
+          response.data.forEach(element => {
+
+            this.itemsCiudades.push(element);
+
+          })
+
+        }.bind(this))
+        .catch(function (error) {
+
+          console.log(error);
+        })
+        .then(function () {
+
+          this.overlay = false;
+        }.bind(this));
     }
 
   },

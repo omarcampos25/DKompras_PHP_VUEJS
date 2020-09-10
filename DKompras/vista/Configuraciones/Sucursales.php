@@ -35,23 +35,64 @@
                 <v-card-text>
                     <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12">
                         <v-text-field v-model="editedItem.sucursal" label="Sucursal"></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12">
+                        <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" >
+                        <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
                         <v-text-field v-model="editedItem.direccion" label="Direccion"></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.ciudad" label="Ciudad"></v-text-field>
+                        <v-col cols="12">
+                        <v-combobox
+                            v-model="selectEstado"
+                            :items="itemsEstados"
+                            label="Selecciona un estado"
+                            item-value="id"
+                            item-text="estado"
+                            outlined
+                            dense
+                            @change="ConsultarCiudades"
+                            ></v-combobox>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.estado" label="Estado"></v-text-field>
+                        <v-col cols="12">
+                        <v-combobox
+                            v-model="selectCiudad"
+                            :items="itemsCiudades"
+                            label="Selecciona una ciudad"
+                            item-value="id"
+                            item-text="ciudad"
+                            outlined
+                            dense
+                            ></v-combobox>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.telefonos" label="Telefono"></v-text-field>
+                        <v-col cols="12">
+                            <v-combobox
+                            v-model="selectPagos"
+                            :items="itemsPagos"
+                            label="Formas de pago"
+                            item-value="idFormaPago"
+                            item-text="FormaPago"
+                            multiple
+                            outlined
+                            dense
+                            ></v-combobox>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                        <v-col cols="12">
+                            <v-combobox
+                            v-model="selectEntregas"
+                            :items="itemsEntregas"
+                            label="Formas de entrega"
+                            item-value="idFormaEntrega"
+                            item-text="FormaEntrega"
+                            multiple
+                            outlined
+                            dense
+                            ></v-combobox>
                         </v-col>
                     </v-row>
                     
@@ -87,7 +128,7 @@
                         label
                         >
                         <v-icon left>mdi-credit-card</v-icon>
-                        Seleccionas los Formas de pago
+                        Seleccionas las Formas de pago
                         </v-chip>
                         </v-col>
                         <v-container fluid>
@@ -178,13 +219,13 @@
             <v-icon
             
             class="mr-2"
-            @click="ShowPagos(item)"
+            @click="MostrarPagosXSucursal(item)"
             >
             mdi-credit-card
             </v-icon>
             <v-icon
             
-            @click="ShowEntregas(item)"
+            @click="MostrarEntregasXSucursal(item)"
             >
             mdi-train-car
             </v-icon>
