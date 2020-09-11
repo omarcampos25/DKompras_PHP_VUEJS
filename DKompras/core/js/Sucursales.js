@@ -181,14 +181,10 @@ new Vue({
 
         })
 
-        parametros.append("formasPagos", idsPagos);
-        parametros.append("formasEntregas", idsEntregas);
-
+        parametros.append("formasPagos", JSON.stringify(this.selectPagos));
+        parametros.append("formasEntregas", JSON.stringify(this.selectEntregas));
         
-
-        
-        
-        axios.post(this.ctr, JSON.stringify(parametros))
+        axios.post(this.ctr,parametros)
           .then(function (response) {
             console.log(response.data);
           }.bind(this))

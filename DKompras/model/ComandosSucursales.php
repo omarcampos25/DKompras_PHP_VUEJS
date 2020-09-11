@@ -124,6 +124,13 @@ class ComandoSucursales
 
     public function InsertarNuevaSucursal($sucursal,$direccion,$ciudad,$estado,$telefono,$email,$formasPagos,$formasEntregas) 
     {
+       
+        $arrayEntregas=json_decode($formasEntregas,true);
+        $arrayPagos=json_decode($formasPagos,true);
+        
+        //var_dump($arrayEntregas);
+        //var_dump($arrayPagos);
+
         $result=null;
         $idSucursal="";
         try 
@@ -131,9 +138,10 @@ class ComandoSucursales
 
             session_start();
             $empresa=$_SESSION['empresa'];
-            var
+            
                         
             try {
+                
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "INSERT INTO sucursales
                 (sucursal,direccion,ciudad,estado,telefono,email,idNegocio)
@@ -158,13 +166,13 @@ class ComandoSucursales
                  
                 }
 
-                if (is_array($formasPagos) || is_object($formasPagos))
+                if (is_array($arrayPagos) || is_object($arrayPagos))
                 {
-                    foreach ($formasPagos as &$element){
-                    
+                    foreach ($arrayPagos as &$element){
+                        $idPago=$element['idFormaPago'];
                         $Conexion = Conexion::getInstance()->obtenerConexion();
                         $this->SQL = "INSERT INTO Sucursal_pago (idSucursal, idFormaPago) 
-                        VALUES($idSucursal,$element)";
+                        VALUES($idSucursal,$idPago)";
                         
                         $this->sta = $Conexion->prepare($this->SQL);
                         $this->sta->execute();
@@ -174,14 +182,14 @@ class ComandoSucursales
                 }
                 
                
-                if (is_array($formasEntregas) || is_object($formasEntregas))
+                if (is_array($arrayEntregas) || is_object($arrayEntregas))
                 {
                   
-                    foreach ($formasEntregas as &$element){
-                        
+                    foreach ($arrayEntregas as &$element){
+                        $idEntrega=$element['idFormaEntrega'];
                         $Conexion = Conexion::getInstance()->obtenerConexion();
                         $this->SQL = "INSERT INTO Sucursal_entrega(idSucursal,idFormaEntrega)
-                        VALUES($idSucursal,$element)";
+                        VALUES($idSucursal,$idEntrega)";
                     
                         $this->sta = $Conexion->prepare($this->SQL);
                         $this->sta->execute();
@@ -191,31 +199,8 @@ class ComandoSucursales
 
                 }
 
-                $contador=count($formasEntregas);
-                echo($contador);
-                for($i=0; $i<$contador; $i++)
-                {
-                    $forma=$formasEntregas[$i];
-                    $Conexion = Conexion::getInstance()->obtenerConexion();
-                    $this->SQL = "INSERT INTO Sucursal_entrega(idSucursal,idFormaEntrega)
-                    VALUES($idSucursal,$forma)";
                 
-                    $this->sta = $Conexion->prepare($this->SQL);
-                    $this->sta->execute();
-                    
-                }
-                $contador=count($formasPagos);
-                for($i=0; $i<$contador; $i++)
-                {
-                    $forma=$formasPagos[$i];
-                    $Conexion = Conexion::getInstance()->obtenerConexion();
-                    $this->SQL = "INSERT INTO Sucursal_pago (idSucursal, idFormaPago)
-                    VALUES($idSucursal,$forma)";
-                
-                    $this->sta = $Conexion->prepare($this->SQL);
-                    $this->sta->execute();
-                    
-                }
+               
 
                
                 
@@ -242,6 +227,20 @@ class ComandoSucursales
             $empresa=$_SESSION['empresa'];
             
             try {
+
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "DELETE Sucursal_entrega WHERE idSucursal='$sucursal'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                Conexion::getInstance()->cerrarConexion();
+
+
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "DELETE Sucursal_pago WHERE idSucursal='$sucursal'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                Conexion::getInstance()->cerrarConexion();
+
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "DELETE FROM sucursales WHERE idSucursal='$sucursal'";
                 $this->sta = $Conexion->prepare($this->SQL);
