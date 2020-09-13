@@ -92,7 +92,7 @@ new Vue({
   
           axios.post(this.ctr, parametros)
             .then(function (response) {
-              console.log(response.data);
+              
   
             }.bind(this))
             .catch(function (error) {
