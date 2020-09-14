@@ -6,6 +6,8 @@ require_once '../../model/ComandosLogin.php';
 require_once '../../model/Session.php';
 
 
+
+
 header('Access-Control-Allow-Origin: *');
 $obj = new ComandosLogin();
 $Session = new session();

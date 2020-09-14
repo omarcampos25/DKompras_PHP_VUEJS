@@ -1,27 +1,27 @@
-<?php   
+<?php
 
 class ComandoSucursales
 {
-    
-    private $SQL;
-    private $sta;
-    
-     
 
-    function __construct() {
-       
+    private $SQL="";
+    private $sta=null;
+
+
+
+    function __construct()
+    {
     }
 
 
-    public function ListarSucursalesXNegocio() 
+    public function ListarSucursalesXNegocio()
     {
-        $result=null;
-        try 
-        {
-            
+        $result = null;
+        try {
+
             session_start();
-            $empresa=$_SESSION['empresa'];
+            $empresa = $_SESSION['empresa'];
             
+
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT idSucursal,sucursal,
@@ -32,10 +32,10 @@ class ComandoSucursales
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
                 Conexion::getInstance()->cerrarConexion();
 
-               
-                
+
+
                 return $datos;
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 Conexion::getInstance()->cerrarConexion();
                 return $e->getMessage();
             }
@@ -44,20 +44,18 @@ class ComandoSucursales
         }
         Conexion::getInstance()->cerrarConexion();
         return $result;
-
     }
 
 
-    public function ListarFormasPagosXSucursal() 
+    public function ListarFormasPagosXSucursal()
     {
-        $result=null;
-        try 
-        {
-            
+        $result = null;
+        try {
+
             session_start();
-            $empresa=$_SESSION['empresa'];
-           
-            
+            $empresa = $_SESSION['empresa'];
+
+
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT fp.idFormaPago,fp.FormaPago,isnull(sp.idSucursal,0) AS sucursal
@@ -68,12 +66,12 @@ class ComandoSucursales
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
                 Conexion::getInstance()->cerrarConexion();
 
-           
-                
-               
-                
+
+
+
+
                 return $datos;
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 Conexion::getInstance()->cerrarConexion();
                 return $e->getMessage();
             }
@@ -82,19 +80,17 @@ class ComandoSucursales
         }
         Conexion::getInstance()->cerrarConexion();
         return $result;
-
     }
-    
 
-    public function ListarFormasEntregasXSucursal() 
+
+    public function ListarFormasEntregasXSucursal()
     {
-        $result=null;
-        try 
-        {
-            
+        $result = null;
+        try {
+
             session_start();
-            $empresa=$_SESSION['empresa'];
-           
+            $empresa = $_SESSION['empresa'];
+
             try {
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT fe.idFormaEntrega,fe.FormaEntrega,isnull(se.idSucursal,0) as sucursal
@@ -105,12 +101,12 @@ class ComandoSucursales
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
                 Conexion::getInstance()->cerrarConexion();
 
-           
-                
-               
-                
+
+
+
+
                 return $datos;
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 Conexion::getInstance()->cerrarConexion();
                 return $e->getMessage();
             }
@@ -119,93 +115,83 @@ class ComandoSucursales
         }
         Conexion::getInstance()->cerrarConexion();
         return $result;
-
     }
 
-    public function InsertarNuevaSucursal($sucursal,$direccion,$ciudad,$estado,$telefono,$email,$formasPagos,$formasEntregas) 
+    public function InsertarNuevaSucursal($sucursal, $direccion, $ciudad, $estado, $telefono, $email, $formasPagos, $formasEntregas)
     {
-       
-        $arrayEntregas=json_decode($formasEntregas,true);
-        $arrayPagos=json_decode($formasPagos,true);
-        
+
+        $arrayEntregas = json_decode($formasEntregas, true);
+        $arrayPagos = json_decode($formasPagos, true);
+
         //var_dump($arrayEntregas);
         //var_dump($arrayPagos);
 
-        $result=null;
-        $idSucursal="";
-        try 
-        {
+        $result = null;
+        $idSucursal = "";
+        try {
 
             session_start();
-            $empresa=$_SESSION['empresa'];
-            
-                        
+            $empresa = $_SESSION['empresa'];
+
+
             try {
-                
+
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "INSERT INTO sucursales
                 (sucursal,direccion,ciudad,estado,telefono,email,idNegocio)
                 VALUES ('$sucursal','$direccion','$ciudad','$estado','$telefono','$email',$empresa)";
-              
+
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
-              
-               
+
+
 
                 $Conexion = Conexion::getInstance()->obtenerConexion();
                 $this->SQL = "SELECT MAX(idSucursal)  AS idSucursal from Sucursales";
-               
+
                 $this->sta = $Conexion->prepare($this->SQL);
                 $this->sta->execute();
                 $datos = $this->sta->fetchAll(PDO::FETCH_ASSOC);
 
 
                 foreach ($datos as &$element) {
-                   
-                    $idSucursal=$element["idSucursal"];
-                 
+
+                    $idSucursal = $element["idSucursal"];
                 }
 
-                if (is_array($arrayPagos) || is_object($arrayPagos))
-                {
-                    foreach ($arrayPagos as &$element){
-                        $idPago=$element['idFormaPago'];
+                if (is_array($arrayPagos) || is_object($arrayPagos)) {
+                    foreach ($arrayPagos as &$element) {
+                        $idPago = $element['idFormaPago'];
                         $Conexion = Conexion::getInstance()->obtenerConexion();
                         $this->SQL = "INSERT INTO Sucursal_pago (idSucursal, idFormaPago) 
                         VALUES($idSucursal,$idPago)";
-                        
+
                         $this->sta = $Conexion->prepare($this->SQL);
                         $this->sta->execute();
-                       
-                       
                     }
                 }
-                
-               
-                if (is_array($arrayEntregas) || is_object($arrayEntregas))
-                {
-                  
-                    foreach ($arrayEntregas as &$element){
-                        $idEntrega=$element['idFormaEntrega'];
+
+
+                if (is_array($arrayEntregas) || is_object($arrayEntregas)) {
+
+                    foreach ($arrayEntregas as &$element) {
+                        $idEntrega = $element['idFormaEntrega'];
                         $Conexion = Conexion::getInstance()->obtenerConexion();
                         $this->SQL = "INSERT INTO Sucursal_entrega(idSucursal,idFormaEntrega)
                         VALUES($idSucursal,$idEntrega)";
-                    
+
                         $this->sta = $Conexion->prepare($this->SQL);
                         $this->sta->execute();
-                        
-                        
                     }
-
                 }
 
-                
-               
 
-               
-                
+
+
+
+
                 return true;
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 Conexion::getInstance()->cerrarConexion();
                 return $e->getMessage();
             }
@@ -214,18 +200,17 @@ class ComandoSucursales
         }
         Conexion::getInstance()->cerrarConexion();
         return $result;
-
     }
 
 
-    public function  EliminarSucursal($sucursal){
-        $result=null;
-        try 
-        {
-            
+    public function  EliminarSucursal($sucursal)
+    {
+        $result = null;
+        try {
+
             session_start();
-            $empresa=$_SESSION['empresa'];
-            
+            $empresa = $_SESSION['empresa'];
+
             try {
 
                 $Conexion = Conexion::getInstance()->obtenerConexion();
@@ -247,10 +232,10 @@ class ComandoSucursales
                 $this->sta->execute();
                 Conexion::getInstance()->cerrarConexion();
 
-               
-                
+
+
                 return true;
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 Conexion::getInstance()->cerrarConexion();
                 return $e->getMessage();
             }
@@ -261,6 +246,91 @@ class ComandoSucursales
         return $result;
     }
 
-    
-    
+    public function EliminarFormas($idSucursal){
+        $result = null;
+        try {
+
+            
+
+            try {
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "DELETE FROM Sucursal_entrega where idSucursal='$idSucursal'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "DELETE FROM Sucursal_pago where idSucursal='$idSucursal'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+
+               
+            } catch (Exception $e) {
+                Conexion::getInstance()->cerrarConexion();
+                return $e->getMessage();
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        Conexion::getInstance()->cerrarConexion();
+        return $result;
+    }
+
+    public function ModificarSucursal($idSucursal,$sucursal,$direccion,$ciudad,$estado,$telefono,$email,$formasPagos,$formasEntregas){
+        $result = null;
+        $Conexion=null;
+        try {
+            $arrayEntregas = json_decode($formasEntregas, true);
+            $arrayPagos = json_decode($formasPagos, true);
+           
+            $this->EliminarFormas($idSucursal);
+            try {
+                $Conexion = Conexion::getInstance()->obtenerConexion();
+                $this->SQL = "UPDATE SUCURSALES 
+                SET  sucursal='$sucursal', direccion='$direccion', ciudad='$ciudad', estado='$estado',telefono='$telefono',email='$email'
+                WHERE idSucursal='$idSucursal'";
+                $this->sta = $Conexion->prepare($this->SQL);
+                $this->sta->execute();
+                
+
+                if (is_array($arrayPagos) || is_object($arrayPagos)) {
+                    foreach ($arrayPagos as &$element) {
+                        $idPago = $element['idFormaPago'];
+                        $Conexion = Conexion::getInstance()->obtenerConexion();
+                        $this->SQL = "INSERT INTO Sucursal_pago (idSucursal, idFormaPago) 
+                        VALUES($idSucursal,$idPago)";
+
+                        $this->sta = $Conexion->prepare($this->SQL);
+                        $this->sta->execute();
+                    }
+                }
+
+
+                if (is_array($arrayEntregas) || is_object($arrayEntregas)) {
+
+                    foreach ($arrayEntregas as &$element) {
+                        $Conexion=null;
+                        $idEntrega = $element['idFormaEntrega'];
+                        $Conexion = Conexion::getInstance()->obtenerConexion();
+                        $this->SQL = "INSERT INTO Sucursal_entrega(idSucursal,idFormaEntrega)
+                        VALUES($idSucursal,$idEntrega)";
+                        $this->sta = $Conexion->prepare($this->SQL);
+                        $this->sta->execute();
+                    }
+                }
+
+
+
+
+
+                return true;
+            } catch (Exception $e) {
+                Conexion::getInstance()->cerrarConexion();
+                return $e->getMessage();
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        Conexion::getInstance()->cerrarConexion();
+        return $result;
+    }
 }

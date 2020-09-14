@@ -45,10 +45,9 @@ new Vue({
     imagenValidador: false,
     dialog:'',
     items: [],
-    select: {
-      familia:'',
-      idfamilia:'',
-    },
+    select:[],
+    load:false,
+    mensajeDialogo:"Cargando Datos..."
   }),
 
   computed: {
@@ -76,7 +75,10 @@ new Vue({
 
       axios.post(this.ctr, parametros)
         .then(function (response) {
-          this.items=response.data;
+          
+          response.data.forEach(element => {
+            this.items.push(element);
+          });
          
 
         }.bind(this))
@@ -89,7 +91,8 @@ new Vue({
           this.overlay = false;
         }.bind(this));
     },
-    initialize() {
+    LlenarLista(){
+      this.load=true;
       let parametros = new URLSearchParams();
       parametros.append("accion", 2);
 
@@ -97,6 +100,7 @@ new Vue({
         .then(function (response) {
 
           this.productos = response.data;
+          this.load=false;
 
         }.bind(this))
         .catch(function (error) {
@@ -106,6 +110,9 @@ new Vue({
         .then(function () {
           this.overlay = false;
         }.bind(this));
+    },
+    initialize() {
+     this.LlenarLista();
     },
 
     

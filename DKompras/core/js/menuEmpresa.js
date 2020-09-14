@@ -12,7 +12,6 @@ new Vue({
     ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
     OpcionProductos:"0",
     admins: [
-      ['Nuevo producto','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/productos/Alta_productos.php','CatalogoEmpleados'],
       ['Lista de productos','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/productos/Catalogo_productos.php','pro'],
       ['Familias','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/productos/ModuloFamilias.php','familia'],
     ],

@@ -17,6 +17,8 @@ $email = clear_input(isset($_REQUEST['email']) && $_REQUEST['email'] != '' ? $_R
 $formasPagos = (isset($_REQUEST['formasPagos']) && $_REQUEST['formasPagos'] != '' ? $_REQUEST['formasPagos'] : '0');
 $formasEntregas = (isset($_REQUEST['formasEntregas']) && $_REQUEST['formasEntregas'] != '' ? $_REQUEST['formasEntregas'] : '0');
 
+$idSucursal = clear_input(isset($_REQUEST['idSucursal']) && $_REQUEST['idSucursal'] != '' ? $_REQUEST['idSucursal'] : '0');
+
 
 
 /*echo($formasEntregas);
@@ -51,6 +53,11 @@ switch ($accion) {
 
       case 5:  
         $result = $obj->EliminarSucursal($sucursal);
+        echo json_encode($result);
+      break;
+
+      case 6:  
+        $result = $obj->ModificarSucursal($idSucursal,$sucursal,$direccion,$ciudad,$estado,$telefono,$email,$formasPagos,$formasEntregas);
         echo json_encode($result);
       break;
       

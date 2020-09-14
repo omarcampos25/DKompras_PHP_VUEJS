@@ -36,16 +36,16 @@
                     <v-container>
                     <v-row>
                         <v-col cols="12">
-                        <v-text-field v-model="editedItem.sucursal" label="Sucursal"></v-text-field>
+                        <v-text-field v-model="editItem.sucursal" label="Sucursal"></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                        <v-text-field v-model="editedItem.telefono" label="Telefono"></v-text-field>
+                        <v-text-field v-model="editItem.telefono" label="Telefono"></v-text-field>
                         </v-col>
                         <v-col cols="12" >
-                        <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                        <v-text-field v-model="editItem.email" label="Email"></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                        <v-text-field v-model="editedItem.direccion" label="Direccion"></v-text-field>
+                        <v-text-field v-model="editItem.direccion" label="Direccion"></v-text-field>
                         </v-col>
                         <v-col cols="12">
                         <v-combobox
@@ -155,7 +155,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                    <v-btn color="blue darken-1" text @click="save">Guardar</v-btn>
+                    <v-btn color="blue darken-1" text @click="GuardarFormasPago">Guardar</v-btn>
                 </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -250,5 +250,25 @@
         </template>
         </v-data-table>
   </template>
+  <v-dialog
+      v-model="load"
+      hide-overlay
+      persistent
+      width="700"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+      <v-card-text>
+        {{mensajeDialogo}}
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0"
+      ></v-progress-linear>
+      </v-card-text>
+      </v-card>
+    </v-dialog>
 
 </div>

@@ -166,6 +166,26 @@
       </template>
     </v-data-table>
   </template>
+  <v-dialog
+      v-model="load"
+      hide-overlay
+      persistent
+      width="700"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+      <v-card-text>
+        {{mensajeDialogo}}
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0"
+      ></v-progress-linear>
+      </v-card-text>
+      </v-card>
+    </v-dialog>
 
 </div>
 
