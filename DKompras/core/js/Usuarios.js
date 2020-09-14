@@ -2,7 +2,7 @@ new Vue({
   el: '#user',
   vuetify: vuetify,
   data: () => ({
-    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_Configuracion.php",
+    ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/Controlador_Configuracion.php",
     dialog: false,
     headers: [
       {

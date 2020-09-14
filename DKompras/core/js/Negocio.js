@@ -14,7 +14,7 @@ new Vue({
     dialog: false,
     telefono: "",
     licencia: "",
-    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_Negocio.php",
+    ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/Controlador_Negocio.php",
     item: {
       image: null,
       imageUrl: null

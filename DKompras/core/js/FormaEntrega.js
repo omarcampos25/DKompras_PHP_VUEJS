@@ -2,7 +2,7 @@ new Vue({
     el: '#entrega',
     vuetify: vuetify,
     data: () => ({
-      ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_FormaEntrega.php",
+      ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/Controlador_FormaEntrega.php",
       dialog: false,
       headers: [
         {

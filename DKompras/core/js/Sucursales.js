@@ -2,8 +2,8 @@ new Vue({
   el: '#sucursal',
   vuetify: vuetify,
   data: () => ({
-    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/controlador_Sucursales.php",
-    ctrEstadoCiudad: 'http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_CiudadEstado.php',
+    ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/controlador_Sucursales.php",
+    ctrEstadoCiudad: sessionStorage.getItem('ruta')+'Dkompras/core/php/Controlador_CiudadEstado.php',
     dialog: false,
     headers: [
       {

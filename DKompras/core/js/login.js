@@ -39,10 +39,10 @@ new Vue({
     fire: false,
     Status: "false",
     form: 1,
-    dialog:false,
-    mensajeDialogo:'',
+    dialog: false,
+    mensajeDialogo: '',
     mensaje: "",
-    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
+    ctr: "Dkompras/core/php/login.php",
     uid: "",
     nombreEmpresa: "",
     correoEmpresa: "",
@@ -62,6 +62,8 @@ new Vue({
 
   },
   created() {
+    sessionStorage.setItem('ruta', 'http://localhost:90/DKOMPRAS_PHP_VUEJS/');
+    this.ctr = sessionStorage.getItem('ruta') + this.ctr;
 
   },
   methods: {
@@ -82,6 +84,7 @@ new Vue({
           this.error = "La contraseña no coincide"
         }
       } else {
+        this.dialog=false;
         this.error = "Todos los campos son requeridos"
       }
     },
@@ -101,8 +104,8 @@ new Vue({
       this.form = 0;
     },
     login() {
-      this.dialog=true;
-      this.mensajeDialogo='Iniciando sesión';
+      this.dialog = true;
+      this.mensajeDialogo = 'Iniciando sesión';
       this.error = ''
       if (this.user && this.pass) {
         firebase.auth().signInWithEmailAndPassword(this.user, this.pass).
@@ -154,8 +157,8 @@ new Vue({
               console.log(response.data);
 
 
-                window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
-
+              var ruta = sessionStorage.getItem('ruta') + 'Dkompras/vista/MenuPrincipal/Menu_principal.php';
+              window.location.href = ruta;
 
 
 
@@ -188,7 +191,7 @@ new Vue({
 
       axios.post(this.ctr, parametros)
         .then(function (response) {
-          window.location.href = 'http://localhost/DKOMPRAS_PHP_VUEJS/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+          window.location.href = sessionStorage.getItem('ruta')+'Dkompras/vista/MenuPrincipal/Menu_principal.php';
           console.log(response);
         }.bind(this))
         .catch(function (error) {

@@ -9,28 +9,28 @@ new Vue({
   data: () => ({
     titulo: "",
     drawer: null,
-    ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/login.php",
+    ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/login.php",
     OpcionProductos:"0",
     admins: [
-      ['Lista de productos','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/productos/Catalogo_productos.php','pro'],
-      ['Familias','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/productos/ModuloFamilias.php','familia'],
+      ['Lista de productos','1',sessionStorage.getItem('ruta')+'Dkompras/vista/productos/Catalogo_productos.php','pro'],
+      ['Familias','1',sessionStorage.getItem('ruta')+'Dkompras/vista/productos/ModuloFamilias.php','familia'],
     ],
     cruds: [
       ['Ajustes'],
       ['Existencias'],
     ],
     configuraciones:[
-      ['Usuarios','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Usuarios.php','user'],
-      ['Negocio','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Negocio.php','negocio'],
-      ['Sucursales','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Sucursales.php','sucursal'],
-      ['Formas de pago','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Formas_pago.php','pago'],
-      ['Formas de entrega','1','http://localhost/Dkompras_php_vuejs/Dkompras/vista/Configuraciones/Formas_entrega.php','entrega'],
+      ['Usuarios','1',sessionStorage.getItem('ruta')+'Dkompras/vista/Configuraciones/Usuarios.php','user'],
+      ['Negocio','1',sessionStorage.getItem('ruta')+'Dkompras/vista/Configuraciones/Negocio.php','negocio'],
+      ['Sucursales','1',sessionStorage.getItem('ruta')+'Dkompras/vista/Configuraciones/Sucursales.php','sucursal'],
+      ['Formas de pago','1',sessionStorage.getItem('ruta')+'Dkompras/vista/Configuraciones/Formas_pago.php','pago'],
+      ['Formas de entrega','1',sessionStorage.getItem('ruta')+'Dkompras/vista/Configuraciones/Formas_entrega.php','entrega'],
     ],
   }),
   methods: {
     ViewHome() {
       this.titulo = "Nuevo producto";
-      window.location.href = 'http://localhost/Dkompras_php_vuejs/Dkompras_php_vuejs/Dkompras/vista/MenuPrincipal/Menu_principal.php';
+      window.location.href = sessionStorage.getItem('ruta')+'Dkompras/vista/MenuPrincipal/Menu_principal.php';
     },
     optionProducto(){
       if(this.OpcionProductos=="0"){

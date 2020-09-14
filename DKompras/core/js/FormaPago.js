@@ -2,7 +2,7 @@ new Vue({
     el: '#pago',
     vuetify: vuetify,
     data: () => ({
-      ctr: "http://localhost/Dkompras_php_vuejs/Dkompras/core/php/Controlador_Formapago.php",
+      ctr: sessionStorage.getItem('ruta')+"Dkompras/core/php/Controlador_Formapago.php",
       dialog: false,
       headers: [
         {
