@@ -33,14 +33,34 @@
                 <v-card-text>
                     <v-container>
                     <v-row>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.formapago" label="Forma de pago"></v-text-field>
+                        <v-col cols="12" sm="12" md="12">
+                        <v-text-field v-model="editedItem.formaentrega" label="Forma de entrega"></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.comision" label="Comision"></v-text-field>
+                        
+                        
+                    </v-row>
+
+                    <v-row>
+                        
+                        
+                        <v-col cols="12" sm="12" md="12">
+                        <v-text-field v-model="editedItem.costo" label="Costo"></v-text-field>
+                        </v-col>
+
+                       
+                        
+                    </v-row>
+                    <v-row>
+                        
+                        
+                        
+
+                        <v-col cols="12" sm="12" md="12">
+                        <v-text-field v-model="editedItem.descripcion" label="Descripcion"></v-text-field>
                         </v-col>
                         
                     </v-row>
+                   
                     
                     </v-container>
                 </v-card-text>

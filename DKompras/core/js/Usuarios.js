@@ -26,7 +26,9 @@ new Vue({
       email: '',
     },
     validador: false,
-    imagenValidador: false
+    imagenValidador: false,
+    dialog:false,
+    mensajeDialogo:false,
   }),
   computed: {
     formTitle() {
@@ -46,6 +48,8 @@ new Vue({
 
   methods: {
     initialize() {
+      this.load=true;
+      this.mensajeDialogo='Cargando datos...';
       let parametros = new URLSearchParams();
       parametros.append("accion", 1);
 
@@ -53,6 +57,7 @@ new Vue({
         .then(function (response) {
 
           this.usuarios = response.data;
+          this.load=false;
 
         }.bind(this))
         .catch(function (error) {

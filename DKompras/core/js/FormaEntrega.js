@@ -72,11 +72,11 @@ new Vue({
       editItem(item) {
         //validador sirve para diferenciar si se esta editando o insertando
         this.validador = true;
-
-        this.editItem.idFormaEntrega=item.idFormaEntrega;
-        this.editItem.formaentrega=item.formaentrega;
-        this.editItem.costo=item.costo;
-        this.editItem.descripcion=item.descripcion;
+        console.log(item.idFormaEntrega);
+        this.editedItem.idFormaEntrega=item.idFormaEntrega;
+        this.editedItem.formaentrega=item.formaentrega;
+        this.editedItem.costo=item.costo;
+        this.editedItem.descripcion=item.descripcion;
         this.dialog = true
       },
   

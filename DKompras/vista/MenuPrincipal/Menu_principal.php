@@ -27,8 +27,6 @@
             <v-app id="inspire">
                 <v-navigation-drawer v-model="drawer" app>
                     
-
-
                     <v-list dense>
                         <v-list-item link @click="ViewEmpresa()">
                             <v-list-item-action>

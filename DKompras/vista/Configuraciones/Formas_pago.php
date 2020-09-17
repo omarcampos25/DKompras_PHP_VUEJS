@@ -36,11 +36,11 @@
 
 
                         <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.formapago" label="Forma de pago"></v-text-field>
+                        <v-text-field v-model="editedItem.formaPago" label="Forma de pago"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="4">
-                        <v-text-field v-model="editedItem.comision" label="Comision"></v-text-field>
+                        <v-text-field v-model="editedItem.Comision" label="Comision"></v-text-field>
                         </v-col>
                         
 
@@ -78,6 +78,27 @@
             <v-btn color="primary" @click="initialize">Reset</v-btn>
         </template>
         </v-data-table>
+
+        <v-dialog
+      v-model="load"
+      hide-overlay
+      persistent
+      width="700"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+      <v-card-text>
+        {{mensajeDialogo}}
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0"
+      ></v-progress-linear>
+      </v-card-text>
+      </v-card>
+    </v-dialog>
   </template>
 
 </div>

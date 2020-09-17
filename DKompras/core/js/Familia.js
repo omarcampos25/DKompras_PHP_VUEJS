@@ -30,7 +30,9 @@ new Vue({
       imageUrl: null
     },
     validador: false,
-    imagenValidador: false
+    imagenValidador: false,
+    load:false,
+    mensajeDialogo:'',
   }),
 
   computed: {
@@ -51,13 +53,16 @@ new Vue({
 
   methods: {
     initialize() {
+      this.load=true;
+      this.mensajeDialogo='Cargando datos...';
       let parametros = new URLSearchParams();
       parametros.append("accion", 4);
 
       axios.post(this.ctr, parametros)
         .then(function (response) {
-
+          
           this.familias = response.data;
+          this.load=false;
 
         }.bind(this))
         .catch(function (error) {

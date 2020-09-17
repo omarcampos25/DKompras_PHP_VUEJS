@@ -8,7 +8,7 @@
     >
     <template v-slot:item.foto="{ item }">
               <div class="p-2">
-                <v-img v-bind:src="'data:image/jpeg;base64,'+item.foto" :alt="item.foto" width="100px" height="100px"></v-img>
+                <v-img v-bind:src="'data:image/jpeg;base64,'+item.foto" :alt="item.foto" width="50px" height="50px"></v-img>
               </div>
             </template>
       <template v-slot:top>
@@ -82,6 +82,28 @@
         <v-btn color="primary" @click="initialize">Reset</v-btn>
       </template>
     </v-data-table>
+    <v-dialog
+      v-model="load"
+      hide-overlay
+      persistent
+      width="700"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+      <v-card-text>
+        {{mensajeDialogo}}
+      <v-progress-linear
+        indeterminate
+        color="white"
+        class="mb-0"
+      ></v-progress-linear>
+      </v-card-text>
+      </v-card>
+    </v-dialog>
   </template>
+ 
+
 
 </div>
