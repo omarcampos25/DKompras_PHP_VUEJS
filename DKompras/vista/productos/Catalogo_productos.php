@@ -124,11 +124,17 @@
                                             </v-col>
 
                                         </v-row>
-                                        <input type="file" accept="image/*" @change="onChangePreView" />
-                                        <br>
-                                        <br>
-                                        <br>
+
+                                        <v-row>
+                                            
+                                            <v-col cols="12" sm="12">
+                                            <input type="file" accept="image/*" @change="onChangePreView" />
+                                        
                                     
+                                            </v-col>
+
+                                        </v-row>
+                                       
                                       </v-container>
 
                     <v-container>

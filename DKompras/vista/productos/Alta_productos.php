@@ -84,7 +84,8 @@
                                             </v-col>
 
                                         </v-row>
-                                        <input type="file" accept="image/*" @change="onChangePreView" />
+                                       
+                                        <v-file-input label="File input" accept="image/*" @change="onChangePreView"  outlined dense></v-file-input>
                                         <br>
                                         <br>
                                         <br>

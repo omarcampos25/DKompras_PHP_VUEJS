@@ -1,0 +1,8 @@
+{
+    "screencastMode.fontSize": 70,
+    "editor.fontSize": 18,
+    "workbench.tree.renderIndentGuides": "none",
+    "diffEditor.renderIndicators": false,
+    "markdown.preview.fontSize": 12,
+    "terminal.integrated.fontWeight": "bold"
+}
