@@ -13,7 +13,7 @@
                     </v-carousel-item>
                 </v-carousel>
             </v-col>
-        </v-row>
+        </v-row> 
 
         <v-divider inset></v-divider>
         <v-row>
