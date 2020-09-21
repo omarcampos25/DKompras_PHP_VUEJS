@@ -220,27 +220,7 @@ new Vue({
       const file = e.target.files[0]
       this.image = file
       this.item.imageUrl = URL.createObjectURL(file)
-      console.log( file);
-      
-      let parametros = new URLSearchParams();
-      parametros.append("imagen", file);
-
-      axios.post( sessionStorage.getItem('ruta') +"Dkompras/core/php/UploadServerImage.php", parametros)
-          .then(function (response) {
-            console.log(response.data);
-          }.bind(this))
-          .catch(function (error) {
-
-            console.log(error);
-          })
-          .then(function () {
-
-            this.overlay = false;
-          }.bind(this));
-      
-     
-
-     // this.ConvertImageToBase64();
+      this.ConvertImageToBase64();
     },
     toDataURL(src, callback) {
       var image = new Image();
