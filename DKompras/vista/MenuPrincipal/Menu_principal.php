@@ -63,7 +63,7 @@
                     <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                     <v-icon>mdi-cart </v-icon>
                     <v-toolbar-title>DKompras </v-toolbar-title>
-                    <v-text-field class="mx-4" flat hide-details label="Search" solo-inverted></v-text-field>
+                    <v-text-field class="mx-4" flat hide-details label="Search"  @keyup.enter.native="MostrarVistaBusqueda" v-model='buscador' solo-inverted></v-text-field>
                 </v-app-bar>
 
                 <v-main >

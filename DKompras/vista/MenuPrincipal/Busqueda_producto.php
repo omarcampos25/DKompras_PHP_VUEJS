@@ -20,7 +20,7 @@
 
             <v-sheet class="mx-auto" elevation="8" max-width="100%">
                 <v-slide-group v-model="model" class="pa-4" mandatory show-arrows>
-                    <v-slide-item v-for="(item,i) in items" :key="n" v-slot:default="{ active, toggle }">
+                    <v-slide-item v-for="(item,i) in items" :key="i" v-slot:default="{ active, toggle }">
                     <v-card elevation="24" class="ma-4" width="300" class="mx-auto">
                     <v-system-bar lights-out></v-system-bar>
                     <v-carousel :continuous="false" :cycle="cycle" :show-arrows="true" hide-delimiter-background
@@ -33,7 +33,7 @@
                         <v-list-item>
                             <v-list-item-content>
                                 <v-list-item-title> {{item.codigo}}</v-list-item-title>
-                                <v-list-item-subtitle>{{item.precio}}</v-list-item-subtitle>
+                                <v-list-item-subtitle>${{item.precio}}</v-list-item-subtitle>
                             </v-list-item-content>
                             <v-list-item-action>
                                 <v-btn small color="primary">Comprar</v-btn>

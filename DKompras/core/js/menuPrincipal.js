@@ -39,6 +39,7 @@ new Vue({
       'Promocion 4',
       'Promocion 5',
     ],
+    buscador:'',
   }),
   created() {
 
@@ -48,6 +49,36 @@ new Vue({
   methods: {
     initialize(){
       this.VistaPrincipal();
+    },
+    MostrarVistaBusqueda(){
+      localStorage.setItem('codigo', this.buscador);
+     
+      
+      let parametros = new URLSearchParams();
+      parametros.append("accion", 1);
+      parametros.append("url", sessionStorage.getItem('ruta') + 'Dkompras/vista/MenuPrincipal/Productos_Consultados.php');
+      
+      axios.post(this.ctr, parametros)
+        .then(function (response) {
+
+          e = document.createElement("article");
+          e.innerHTML = response.data;
+          document.getElementById("contenedor").innerHTML = "";
+          document.getElementById("contenedor").appendChild(e);
+
+          var nuevo_script = document.createElement("script");
+          nuevo_script.src = document.getElementById("consulta").dataset.script;
+          e.appendChild(nuevo_script);
+
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {
+          this.overlay = false;
+
+
+        }.bind(this));
     },
     VistaPrincipal() {
       let parametros = new URLSearchParams();
