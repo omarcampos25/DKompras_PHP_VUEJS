@@ -25,7 +25,7 @@
                     <v-system-bar lights-out></v-system-bar>
                     <v-carousel :continuous="false" :cycle="cycle" :show-arrows="true" hide-delimiter-background
                         delimiter-icon="mdi-minus" height="300">
-                        <v-carousel-item :alt="item.imagen" v-bind:src="'data:image/jpeg;base64,'+item.imagen"
+                        <v-carousel-item :alt="item.imagen" width="300" height="160"  v-bind:src="'data:image/jpeg;base64,'+item.imagen"
                             reverse-transition="fade-transition" transition="fade-transition">
                         </v-carousel-item>
                     </v-carousel>

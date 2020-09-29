@@ -3,7 +3,13 @@ new Vue({
   vuetify: vuetify,
   data: () => ({
     ctr: sessionStorage.getItem('ruta') + "Dkompras/core/php/Controlador_ProductosConsultados.php",
-    items: [],
+    items: [
+      'primary',
+      'secondary',
+      'yellow darken-2',
+      'red',
+      'orange',
+    ],
   }),
   mounted() {
     this.MostrarProductos();

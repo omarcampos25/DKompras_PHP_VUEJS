@@ -11,11 +11,9 @@
                     <v-list-item v-for="item in items" :key="item.title" @click="MostrarDetalleProducto(item.idProducto)">
                         <v-card elevation="24" class="ma-1" width="1000"  class="mx-auto">
                             <v-row>
-                                <v-col cols="1" sm="1" md="1">
-                                   
-                                </v-col>
-                                <v-col cols="2" sm="2" md="2">
-                                    <v-img width="160" height="160" :alt="item.imagen"
+                               
+                                <v-col cols="3" sm="3" md="3">
+                                    <v-img width="300" height="160" :alt="item.imagen"
                                         v-bind:src="'data:image/jpeg;base64,'+item.imagen"></v-img>
                                 </v-col>
                                 <v-col cols="9" sm="9" md="9">
