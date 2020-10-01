@@ -36,7 +36,7 @@ new Vue({
         }.bind(this));
     },
     MostrarDetalleProducto(idProducto) {
-      alert(idProducto);
+     
       localStorage.setItem('idProducto',idProducto);
       window.location.href = sessionStorage.getItem('ruta')+'Dkompras/vista/Compras/DetalleProducto.php';
 
